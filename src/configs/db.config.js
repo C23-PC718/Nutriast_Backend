@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
 
 // dbname, username, password
-const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
-  host: "34.101.40.63",
+const db = new Sequelize("", "", "", {
+  host: "",
   dialect: "mysql",
 });
 

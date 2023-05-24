@@ -1,15 +1,14 @@
 import express from "express";
-// import cors from 'cors'
 import router from "./src/routes/index.js";
 import bodyParser from "body-parser";
 // import cookieParser from "cookie-parser";
-import db from './src/configs/db.config.js';
+// import cors from 'cors'
 // import dotenv from "dotenv";
 // dotenv.config();
+import db from './src/configs/db.config.js';
 
 const app = express();
 const port = process.env.PORT || 8000;
-
 
 app.use(bodyParser.json());
 app.use(
