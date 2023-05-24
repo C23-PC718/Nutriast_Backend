@@ -20,8 +20,8 @@ npm run dev
 # Deploy to GCP
 1. clone and change directory
 ```
-git clone -b dev <git_link> file_name
-cd be-sd-ciwaregu/
+git clone <git_link> file_name
+cd file_name
 ```
 2. create image
 ```

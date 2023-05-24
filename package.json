@@ -5,12 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arik147/diagnese-api.git"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
