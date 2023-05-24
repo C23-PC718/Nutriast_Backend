@@ -1,3 +1,5 @@
+## Nutriast JS API
+
 # Installation
 1. Clone repository following this command
 ```
