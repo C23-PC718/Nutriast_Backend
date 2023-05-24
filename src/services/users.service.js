@@ -7,7 +7,7 @@ async function getMultiple(){
   
   try {
 
-    const dbResult = await Users.findAll(query);
+    const dbResult = await Users.findAll();
 
     // Return the mapped galleries in the response
     return {
