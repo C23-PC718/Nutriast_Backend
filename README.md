@@ -16,19 +16,32 @@ The project is divided into three teams that collaborate to create an ML-based p
 ...
 ### Database
 - Table users:
--> id (varchar[255], primary)
--> Username (varchar[255], not null)
--> Email (varchar[255], not null)
--> Password (varchar[255], not null)
--> Gender (varchar[255], not null)
--> BirthDate (date, not null)
--> Height (float[11], not null)
--> Weight (float[11], not null)
--> FatNeed (float[11], not null)
--> ProteinNeed (float[11], not null)
--> CaloryNeed (float[11], not null)
--> FibreNeed (float[11], not null)
--> CarbohidrateNeed (float[11], not null)
+> id (varchar[255], primary)
+
+> Username (varchar[255], not null)
+
+> Email (varchar[255], not null)
+
+> Password (varchar[255], not null)
+
+> Gender (varchar[255], not null)
+
+> BirthDate (date, not null)
+
+> Height (float[11], not null)
+
+> Weight (float[11], not null)
+
+> FatNeed (float[11], not null)
+
+> ProteinNeed (float[11], not null)
+
+> CaloryNeed (float[11], not null)
+
+> FibreNeed (float[11], not null)
+
+> CarbohidrateNeed (float[11], not null)
+
 - Intake users:
 -> id (varchar[255], primary)
 -> user_id (ForeignKey to users)
