@@ -43,14 +43,21 @@ The project is divided into three teams that collaborate to create an ML-based p
 > CarbohidrateNeed (float[11], not null)
 
 - Intake users:
--> id (varchar[255], primary)
--> user_id (ForeignKey to users)
--> HealthStatus (varchar[255]])
--> FatIntake (float[11])
--> CaloryIntake (float[11])
--> FiberIntake (float[11])
--> CarbohidrateIntake (float[11])
--> Feedback (float[11])
+> id (varchar[255], primary)
+
+> user_id (ForeignKey to users)
+
+> HealthStatus (varchar[255]])
+
+> FatIntake (float[11])
+
+> CaloryIntake (float[11])
+
+> FiberIntake (float[11])
+
+> CarbohidrateIntake (float[11])
+
+> Feedback (float[11])
 
 
 ## Installation
@@ -67,7 +74,8 @@ npm install
 npm run dev
 ```
 
-# API SPEC DOCUMENTATION
+## API SPEC DOCUMENTATION
+
 - link : https://app.swaggerhub.com/apis-docs/
 
 # Deploy to GCP
