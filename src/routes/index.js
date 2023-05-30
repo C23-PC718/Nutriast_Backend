@@ -8,7 +8,7 @@ router.post('/users', usersController.create);
 router.get('/users', usersController.get);
 
 // {
-//   "username":"test",
+//   "username":"rafi",
 //   "email":"test@gmail.com",
 //   "password":"test",
 //   "birthdate":"2002-05-05",
