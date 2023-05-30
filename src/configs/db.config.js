@@ -1,8 +1,10 @@
 import { Sequelize } from "sequelize";
+// import dotenv from "dotenv";
+// dotenv.config();
 
 // dbname, username, password
-const db = new Sequelize("", "", "", {
-  host: "",
+const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
+  host: "34.101.40.63",
   dialect: "mysql",
 });
 

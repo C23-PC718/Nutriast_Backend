@@ -7,25 +7,25 @@ export const IntakeUsers = db.define('intakeuser', {
         primaryKey: true,
         allowNull: false,
     },
-    userId: {
+    userid: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    healthStatus: {
+    healthstatus: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    fatIntake: {
+    fatintake: {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
-    caloryIntake: {
+    caloryintake: {
         type: DataTypes.FLOAT,
     },
-    fiberIntake: {
+    fiberintake: {
         type: DataTypes.FLOAT,
     },
-    carbohidrateIntake: {
+    carbohidrateintake: {
         type: DataTypes.FLOAT,
     },
     feedback: {
