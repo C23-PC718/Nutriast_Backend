@@ -81,6 +81,10 @@ npm run dev
 ## API SPEC DOCUMENTATION
 
 - link : https://app.swaggerhub.com/apis-docs/
+- use swagger preview in vscode
+1. Install swagger preview extensions in vscode
+2. right click in file sdciwaregu-api-spec.yaml -> swagger preview
+3. or just use shift+ctrl+p in file yaml
 
 # Deploy to GCP
 1. clone and change directory
@@ -100,11 +104,3 @@ gcloud run deploy --image gcr.io/<project_id>/file_name
 ```
 gcloud app deploy
 ```
-
-# API SPEC DOCUMENTATION
-- link : https://app.swaggerhub.com/apis-docs/aliefabdillah/api-spec_sd_ciwaregu_website/1.0.0-oas3
-
-- use swagger preview in vscode
-1. Install swagger preview extensions in vscode
-2. right click in file sdciwaregu-api-spec.yaml -> swagger preview
-3. or just use shift+ctrl+p in file yaml
