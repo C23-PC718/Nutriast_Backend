@@ -1,4 +1,5 @@
 import usersService from "../services/users.service.js";
+import ResponseClass from "../models/response.model.js";
 
 const get = async (req, res, next) => {
   try {

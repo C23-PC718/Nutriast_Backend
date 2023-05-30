@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
-// import dotenv from "dotenv";
-// dotenv.config();
+import dotenv from "dotenv";
+dotenv.config();
 
 // dbname, username, password
 const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
