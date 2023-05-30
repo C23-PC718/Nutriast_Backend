@@ -14,6 +14,7 @@ export const Users = db.define('users', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     password: {
         type: DataTypes.STRING,
@@ -33,6 +34,14 @@ export const Users = db.define('users', {
         allowNull: false,
     },
     weight: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    cholesterol: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    glucose: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },

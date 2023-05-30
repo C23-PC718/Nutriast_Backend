@@ -1,7 +1,7 @@
 import express from "express";
 import router from "./src/routes/index.js";
 import bodyParser from "body-parser";
-// import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 // import cors from 'cors'
 // import dotenv from "dotenv";
 // dotenv.config();
@@ -23,8 +23,7 @@ app.use(
 // }))
 
 app.use(router);
-
-// app.use(cookieParser())
+app.use(cookieParser())
 app.use(express.json())
 app.get('/', (req, res) => {
   res.json({'message': 'ok'});

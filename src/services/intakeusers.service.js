@@ -1,70 +1,65 @@
-import { Op } from 'sequelize';
-import { v4 as uuidv4 } from 'uuid';
-import { IntakeUsers } from "../models/intakeusers.model";
-// import cloudinaryConfig from '../configs/cloudinary.config.js';
+import { IntakeUsers } from "../models/intakeusers.model.js";
+import { v4 as uuidv4 } from "uuid";
 
-async function getMultiple(){
-  
+async function getMultiple(userid) {
   try {
-
-    const dbResult = await IntakeUsers.findAll();
-
+    const dbResult = await IntakeUsers.findAll({
+      where: { userId: userid },
+    });
     // Return the mapped in the response
     return {
-      status: "success", 
-      code : 200,
-      message : 'Fetching users successfully!',
-      data : dbResult
-    }
-    
+      status: "success",
+      code: 200,
+      message: "Fetching intake users successfully!",
+      data: dbResult,
+    };
   } catch (err) {
     console.error(err);
     return {
-      status: "Failed", 
-      code : 400,
-      message : 'Error fetching users!'
-    }
+      status: "Failed",
+      code: 400,
+      message: "Error fetching intake users!",
+    };
   }
 }
 
-async function createIntakeUsers(request){
-
-  // Get request Body
-  const { username, userId, healthStatus, fatIntake , caloryIntake , fiberIntake , carbohidrateIntake  } = request.body
-    
-    try {
-      // Create new users record using the model
-      const newIntakeUsers = await IntakeUsers.create({
-        id: uuidv4(),
-        userId,
-        healthStatus,
-        fatIntake, 
-        caloryIntake, 
-        fiberIntake, 
-        carbohidrateIntake, 
-        createdAt: new Date(),
-        updatedAt: new Date()
-      });
-
-      // Return the newly in the response
-      return {
-        status: "success",
-        code: 201,
-        message: 'new user created successfully!',
-        data: newIntakeUsers
-      }
-    
-  } catch (err) {
-    console.error(err);
+async function createIntakeUsers(requestBody, userid) {
+  try {
+    const intakeUserId = uuidv4();
+    await IntakeUsers.create({
+      id: intakeUserId,
+      userid: userid,
+      fatintake: requestBody.fatintake,
+      caloryintake: requestBody.caloryintake,
+      fiberintake: requestBody.fiberintake,
+      carbohidrateintake: requestBody.carbohidrateintake,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     return {
-      status: "Failed", 
-      code : 400,
-      message : 'Error creating user!'
-    }
+      status: "success",
+      code: 200,
+      message: "Creating intake users successfully!",
+      data: {
+        id: intakeUserId,
+        userid: userid,
+        fatintake: requestBody.fatintake,
+        caloryintake: requestBody.caloryintake,
+        fiberintake: requestBody.fiberintake,
+        carbohidrateintake: requestBody.carbohidrateintake,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "Failed",
+      code: 400,
+      message: "Error creating intake users!",
+    };
   }
 }
 
 export default {
   getMultiple,
-  createIntakeUsers
-}
+  createIntakeUsers,
+};

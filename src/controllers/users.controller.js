@@ -10,25 +10,73 @@ const get = async (req, res, next) => {
 }
 
 
-const create = async (req, res, next) => {
+//register function
+const register = async(req, res) =>  {
   try {
-    // Create data to DB
-    const data = await usersService.createUsers(req);
-    // if Return "Created / 201"
-    if (data.code === 201)
-    {
-      // send response
-      return res.status(201).json(data);
-    }
-    // return Error
-    return res.status(400).json(data);
-  } catch (err) {
-    console.error(`Error while creating users`, err.message);
-    next(err);
+      res.json(await usersService.registerUsers(req.body));
+  }catch(error){
+      console.log(error);
   }
 }
 
+
+
+//login function
+const login = async(req, res) => {
+  try {
+      var loginResult = await usersService.loginUsers(req.body);
+
+      //if login result is success
+      if (loginResult.code == 200) {
+          var responseSuccess = new ResponseClass.SuccessResponse()
+
+          //return response cookie with refresh_token
+          res.cookie('refreshToken', loginResult.refresh_token, {
+              httpOnly: true,
+              maxAge: 24 * 60 * 60 * 1000
+          });
+          
+          //return response
+          responseSuccess.message = "Login Success"
+          responseSuccess.data = {
+              object: "authentication_token",
+              userId: loginResult.userId,
+              email: req.body.email,
+              roles: loginResult.roles,
+              authentication_token: loginResult.accessToken
+          }
+  
+          res.json(responseSuccess);
+      }else{
+          //return error response
+          res.json(loginResult);
+      }
+      
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+const logout = async(req, res, next) => {
+  try {
+      var logoutResult = await usersService.logoutUsers(req.headers.cookie);
+
+      if (logoutResult.code == 200) {
+          res.clearCookie('refreshToken')
+      }
+
+      res.json(logoutResult)
+  } catch (error) {
+      console.log(error);
+      next(error)
+  }
+}
+
+
 export default {
   get,
-  create
+  login,
+  register,
+  logout
 }

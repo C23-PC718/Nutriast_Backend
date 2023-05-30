@@ -1,15 +1,17 @@
 import express from "express";
+import { verifyToken } from "../middlewares/VerifyToken.js";
 import usersController from '../controllers/users.controller.js';
-import usersController from '../controllers/intakeusers.controller';
+import intakeusersController from '../controllers/intakeusers.controller';
 
 const router =  express.Router();
 
 /* users */
-router.post('/users', usersController.create);
-router.get('/users', usersController.get);
+router.post('/register', usersController.register);
+router.post('/login', usersController.login);
+router.delete('/logout', usersController.logout)
 
-router.post('/intakeusers', usersController.create);
-router.get('/intakeusers', usersController.get);
+router.post('/intakeusers', intakeusersController.create);
+router.get('/intakeusers', intakeusersController.get);
 
 // {
 //   "username":"rafi",
