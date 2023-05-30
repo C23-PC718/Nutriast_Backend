@@ -18,46 +18,50 @@ The project is divided into three teams that collaborate to create an ML-based p
 - Table users:
 > id (varchar[255], primary)
 
-> Username (varchar[255], not null)
+> username (varchar[255], not null)
 
-> Email (varchar[255], not null)
+> email (varchar[255], not null)
 
-> Password (varchar[255], not null)
+> password (varchar[255], not null)
 
-> Gender (varchar[255], not null)
+> gender (varchar[255], not null)
 
-> BirthDate (date, not null)
+> birthDate (date, not null)
 
-> Height (float[11], not null)
+> height (integer[11], not null)
 
-> Weight (float[11], not null)
+> weight (integer[11], not null)
 
-> FatNeed (float[11], )
+> cholesterol (integer[11], not null)
 
-> ProteinNeed (float[11], )
+> glucose (integer[11], not null)
 
-> CaloryNeed (float[11], )
+> fatneed (float[11], )
 
-> FibreNeed (float[11], )
+> proteinneed (float[11], )
 
-> CarbohidrateNeed (float[11], )
+> caloryneed (float[11], )
+
+> fiberneed (float[11], )
+
+> carbohidrateNeed (float[11], )
 
 - Intake users:
 > id (varchar[255], primary)
 
-> user_id (ForeignKey to users)
+> userid (reference to users)
 
-> HealthStatus (varchar[255]])
+> healthStatus (varchar[255])
 
-> FatIntake (float[11])
+> fatIntake (float[11])
 
-> CaloryIntake (float[11])
+> caloryIntake (float[11])
 
-> FiberIntake (float[11])
+> fiberIntake (float[11])
 
-> CarbohidrateIntake (float[11])
+> carbohidrateIntake (float[11])
 
-> Feedback (float[11])
+> feedback (varchar[255])
 
 
 ## Installation
@@ -96,3 +100,11 @@ gcloud run deploy --image gcr.io/<project_id>/file_name
 ```
 gcloud app deploy
 ```
+
+# API SPEC DOCUMENTATION
+- link : https://app.swaggerhub.com/apis-docs/aliefabdillah/api-spec_sd_ciwaregu_website/1.0.0-oas3
+
+- use swagger preview in vscode
+1. Install swagger preview extensions in vscode
+2. right click in file sdciwaregu-api-spec.yaml -> swagger preview
+3. or just use shift+ctrl+p in file yaml
