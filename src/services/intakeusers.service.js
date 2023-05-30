@@ -1,10 +1,10 @@
 import { IntakeUsers } from "../models/intakeusers.model.js";
 import { v4 as uuidv4 } from "uuid";
 
-async function getMultiple(userid) {
+async function getMultiple() {
   try {
     const dbResult = await IntakeUsers.findAll({
-      where: { userId: userid },
+      // where: { userId: userid },
     });
     // Return the mapped in the response
     return {
@@ -23,12 +23,12 @@ async function getMultiple(userid) {
   }
 }
 
-async function createIntakeUsers(requestBody, userid) {
+async function createIntakeUsers(requestBody) {
   try {
     const intakeUserId = uuidv4();
     await IntakeUsers.create({
       id: intakeUserId,
-      userid: userid,
+      userid: requestBody.userid,
       fatintake: requestBody.fatintake,
       caloryintake: requestBody.caloryintake,
       fiberintake: requestBody.fiberintake,
@@ -42,7 +42,7 @@ async function createIntakeUsers(requestBody, userid) {
       message: "Creating intake users successfully!",
       data: {
         id: intakeUserId,
-        userid: userid,
+        userid: requestBody.userid,
         fatintake: requestBody.fatintake,
         caloryintake: requestBody.caloryintake,
         fiberintake: requestBody.fiberintake,

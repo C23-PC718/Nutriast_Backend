@@ -13,11 +13,9 @@ export const IntakeUsers = db.define('intakeuser', {
     },
     healthstatus: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     fatintake: {
         type: DataTypes.FLOAT,
-        allowNull: false,
     },
     caloryintake: {
         type: DataTypes.FLOAT,
