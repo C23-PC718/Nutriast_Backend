@@ -13,7 +13,7 @@ const get = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     // Create data to DB
-    const data = await intakeUsersService.createIntakeUsers(req);
+    const data = await intakeUsersService.createIntakeUsers(req.body);
     // if Return "Created / 201"
     if (data.code === 201)
     {

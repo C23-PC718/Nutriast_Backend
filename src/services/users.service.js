@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Users } from "../models/users.model.js";
+import ResponseClass from "../models/response.model.js";
 
 async function getMultiple() {
   try {
@@ -23,20 +24,19 @@ async function getMultiple() {
   }
 }
 
-async function registerUsers(request) {
+async function registerUsers(requestBody) {
   var responseError = new ResponseClass.ErrorResponse();
   var responseSuccess = new ResponseClass.SuccessResponse();
-
   if (
-    !request.email ||
-    !request.password ||
-    !request.username ||
-    !request.birthdate ||
-    !request.gender ||
-    !request.height ||
-    !request.weight ||
-    !request.cholesterol ||
-    !request.glucose
+    !requestBody.email ||
+    !requestBody.password ||
+    !requestBody.username ||
+    !requestBody.birthdate ||
+    !requestBody.gender ||
+    !requestBody.height ||
+    !requestBody.weight ||
+    !requestBody.cholesterol ||
+    !requestBody.glucose
   ) {
     responseError.message = "Please fill all field correctly!";
     return responseError;

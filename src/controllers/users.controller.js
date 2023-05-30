@@ -11,11 +11,12 @@ const get = async (req, res, next) => {
 
 
 //register function
-const register = async(req, res) =>  {
+const register = async(req, res, next) =>  {
   try {
       res.json(await usersService.registerUsers(req.body));
   }catch(error){
       console.log(error);
+      next(error);
   }
 }
 
