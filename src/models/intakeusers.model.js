@@ -29,7 +29,7 @@ export const IntakeUsers = db.define('intakeuser', {
         type: DataTypes.FLOAT,
     },
     feedback: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.TEXT,
     },
     createdAt: {
         type: DataTypes.DATE,

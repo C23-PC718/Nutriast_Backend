@@ -1,13 +1,13 @@
 import { Op } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
-import { Users } from "../models/users.model.js";
+import { IntakeUsers } from "../models/intakeusers.model";
 // import cloudinaryConfig from '../configs/cloudinary.config.js';
 
 async function getMultiple(){
   
   try {
 
-    const dbResult = await Users.findAll();
+    const dbResult = await IntakeUsers.findAll();
 
     // Return the mapped in the response
     return {
@@ -27,32 +27,31 @@ async function getMultiple(){
   }
 }
 
-async function createUsers(request){
+async function createIntakeUsers(request){
 
   // Get request Body
-  const { username, email, password, birthdate, gender, height, weight } = request.body
+  const { username, userId, healthStatus, fatIntake , caloryIntake , fiberIntake , carbohidrateIntake  } = request.body
     
     try {
       // Create new users record using the model
-      const newUsers = await Users.create({
+      const newIntakeUsers = await IntakeUsers.create({
         id: uuidv4(),
-        username,
-        email,
-        password, 
-        birthdate, 
-        gender, 
-        height, 
-        weight,
+        userId,
+        healthStatus,
+        fatIntake, 
+        caloryIntake, 
+        fiberIntake, 
+        carbohidrateIntake, 
         createdAt: new Date(),
         updatedAt: new Date()
       });
 
-      // Return the newly users in the response
+      // Return the newly in the response
       return {
         status: "success",
         code: 201,
         message: 'new user created successfully!',
-        data: newUsers
+        data: newIntakeUsers
       }
     
   } catch (err) {
@@ -67,5 +66,5 @@ async function createUsers(request){
 
 export default {
   getMultiple,
-  createUsers
+  createIntakeUsers
 }
