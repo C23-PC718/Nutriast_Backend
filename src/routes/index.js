@@ -1,5 +1,6 @@
 import express from "express";
 import usersController from '../controllers/users.controller.js';
+import usersController from '../controllers/intakeusers.controller';
 
 const router =  express.Router();
 
@@ -7,8 +8,11 @@ const router =  express.Router();
 router.post('/users', usersController.create);
 router.get('/users', usersController.get);
 
+router.post('/intakeusers', usersController.create);
+router.get('/intakeusers', usersController.get);
+
 // {
-//   "username":"test",
+//   "username":"rafi",
 //   "email":"test@gmail.com",
 //   "password":"test",
 //   "birthdate":"2002-05-05",

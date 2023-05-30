@@ -32,15 +32,15 @@ The project is divided into three teams that collaborate to create an ML-based p
 
 > Weight (float[11], not null)
 
-> FatNeed (float[11], not null)
+> FatNeed (float[11], )
 
-> ProteinNeed (float[11], not null)
+> ProteinNeed (float[11], )
 
-> CaloryNeed (float[11], not null)
+> CaloryNeed (float[11], )
 
-> FibreNeed (float[11], not null)
+> FibreNeed (float[11], )
 
-> CarbohidrateNeed (float[11], not null)
+> CarbohidrateNeed (float[11], )
 
 - Intake users:
 > id (varchar[255], primary)

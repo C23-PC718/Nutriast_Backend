@@ -1,55 +1,35 @@
 import { DataTypes } from 'sequelize';
 import db from '../configs/db.config.js';
 
-export const Users = db.define('users', {
+export const IntakeUsers = db.define('intakeuser', {
     id: {
         type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
-    username: {
+    userId: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    email: {
+    healthStatus: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    password: {
-        type: DataTypes.STRING,
+    fatIntake: {
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
-    birthdate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    gender: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    height: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    weight: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    fatneed: {
+    caloryIntake: {
         type: DataTypes.FLOAT,
     },
-    proteinneed: {
+    fiberIntake: {
         type: DataTypes.FLOAT,
     },
-    caloryneed: {
+    carbohidrateIntake: {
         type: DataTypes.FLOAT,
     },
-    fiberneed: {
-        type: DataTypes.FLOAT,
-    },
-    carbohidrateneed: {
-        type: DataTypes.FLOAT,
+    feedback: {
+        type: DataTypes.TEXT,
     },
     createdAt: {
         type: DataTypes.DATE,
