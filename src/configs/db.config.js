@@ -1,11 +1,11 @@
 import { Sequelize } from "sequelize";
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
 
 // dbname, username, password
-const db = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-  host: process.env.DB_HOST,
-  dialect: process.env.DB_DIALECT
+const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
+  host: "34.101.40.63",
+  dialect: "mysql",
 });
 
 
