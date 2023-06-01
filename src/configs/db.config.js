@@ -9,7 +9,7 @@ const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
 });
 
 
-// Sinkron table pada db dari model
+// Uncommand to sync table design
 
 // db.sync({ alter: true })
 //   .then(() => {
