@@ -60,6 +60,9 @@ export const Users = db.define('users', {
     carbohidrateneed: {
         type: DataTypes.FLOAT,
     },
+    refresh_token: {
+        type: DataTypes.STRING,
+    },
     createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -70,7 +73,8 @@ export const Users = db.define('users', {
         allowNull: false,
         defaultValue: DataTypes.NOW
         },
-    }, 
+    },
+    
 {
   freezeTableName: true
 });

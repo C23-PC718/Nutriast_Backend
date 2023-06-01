@@ -182,7 +182,7 @@ async function logoutUsers(request) {
     if (loginUser !== null) {
       await Users.update(
         { refresh_token: null },
-        { where: { id: loginStudent.id } }
+        { where: { id: loginUser.id } }
       );
     } else {
       responseSuccess.code = 204;
