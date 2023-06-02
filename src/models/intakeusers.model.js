@@ -26,8 +26,11 @@ export const IntakeUsers = db.define('intakeuser', {
     carbohidrateintake: {
         type: DataTypes.FLOAT,
     },
+    healthstatus: {
+        type: DataTypes.STRING
+    },
     feedback: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
     },
     createdAt: {
         type: DataTypes.DATE,

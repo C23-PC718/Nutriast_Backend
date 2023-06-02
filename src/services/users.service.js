@@ -24,6 +24,43 @@ async function getMultiple() {
   }
 }
 
+async function getById(request){
+  
+  const { userId } = request.params
+
+  try {
+
+    const dbResult = await Users.findOne({ 
+      where: { id: userId }, 
+      include: [
+        { 
+          model: Users, 
+          as: 'usersDetail',
+          attributes: ['username', 'email', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed'] 
+        } 
+      ],
+      attributes: ['id']
+    });
+    
+
+    // Return the mapped Users in the response
+    return {
+      status: "success", 
+      code : 200,
+      message : 'Fetching user successfully!',
+      data : dbResult
+    }
+    
+  } catch (err) {
+    console.error(err);
+    return {
+      status: "Failed", 
+      code : 400,
+      message : 'Error fetching user!'
+    }
+  }
+}
+
 async function registerUsers(requestBody) {
   var responseError = new ResponseClass.ErrorResponse();
   var responseSuccess = new ResponseClass.SuccessResponse();
@@ -233,6 +270,7 @@ function generateToken(userRegistered) {
 
 export default {
   getMultiple,
+  getById,
   registerUsers,
   loginUsers,
   logoutUsers,

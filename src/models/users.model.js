@@ -45,6 +45,9 @@ export const Users = db.define('users', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    cardiovascular: {
+        type: DataTypes.STRING
+    },
     fatneed: {
         type: DataTypes.FLOAT,
     },
