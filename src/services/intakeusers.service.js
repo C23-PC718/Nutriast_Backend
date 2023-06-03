@@ -92,6 +92,7 @@ async function createIntakeUsers(request) {
   }
 }
 
+
 export default {
   getMultiple,
   getById,
