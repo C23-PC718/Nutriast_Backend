@@ -1,4 +1,5 @@
 import { IntakeUsers } from "../models/intakeusers.model.js";
+import { Users } from "../models/users.model.js";
 import { v4 as uuidv4 } from "uuid";
 
 async function getMultiple() {
@@ -23,16 +24,24 @@ async function getMultiple() {
   }
 }
 
-async function createIntakeUsers(requestBody) {
+async function createIntakeUsers(request) {
+  const { userId } = request.params
+  const user = await Users.findOne({
+    where: { userId: userId },
+  });
+  let status = "none"
+  let feedback = "none"
   try {
     const intakeUserId = uuidv4();
     await IntakeUsers.create({
       id: intakeUserId,
-      userid: requestBody.userid,
-      fatintake: requestBody.fatintake,
-      caloryintake: requestBody.caloryintake,
-      fiberintake: requestBody.fiberintake,
-      carbohidrateintake: requestBody.carbohidrateintake,
+      userid: userId,
+      fatintake: request.body.fatintake,
+      caloryintake: request.body.caloryintake,
+      fiberintake: request.body.fiberintake,
+      carbohidrateintake: request.body.carbohidrateintake,
+      healthstatus:status,
+      feedback:feedback,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -42,11 +51,13 @@ async function createIntakeUsers(requestBody) {
       message: "Creating intake users successfully!",
       data: {
         id: intakeUserId,
-        userid: requestBody.userid,
-        fatintake: requestBody.fatintake,
-        caloryintake: requestBody.caloryintake,
-        fiberintake: requestBody.fiberintake,
-        carbohidrateintake: requestBody.carbohidrateintake,
+        userid: userId,
+        fatintake: request.body.fatintake,
+        caloryintake: request.body.caloryintake,
+        fiberintake: request.body.fiberintake,
+        carbohidrateintake: request.body.carbohidrateintake,
+        healthstatus:status,
+        feedback:feedback,
       },
     };
   } catch (error) {

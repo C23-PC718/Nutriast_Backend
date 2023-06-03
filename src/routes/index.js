@@ -6,12 +6,12 @@ import intakeusersController from '../controllers/intakeusers.controller.js';
 const router =  express.Router();
 
 /* users */
-router.get('/users', verifyToken, usersController.get);
+router.get('/users', usersController.get);
 router.post('/register', usersController.register);
 router.post('/login', usersController.login);
 router.delete('/logout', usersController.logout)
 
-router.post('/intakeusers', intakeusersController.create);
+router.post('/intakeusers/:id', verifyToken, intakeusersController.create);
 router.get('/intakeusers', intakeusersController.get);
 
 // {
