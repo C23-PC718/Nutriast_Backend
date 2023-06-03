@@ -2,14 +2,33 @@ import usersService from "../services/users.service.js";
 import ResponseClass from "../models/response.model.js";
 
 // get all users
-const get = async (res, next) => {
+const get = async (req, res, next) => {
   try {
-    res.json(await usersService.getMultiple());
-  } catch (err) {
-      console.error(`Error while getting users`, err.message);
-      next(err);
+    const data = await usersService.getMultiple();
+    // res.json(await usersService.getMultiple());
+    if (data.code === 200)
+    {
+      // send response
+      if (res.status) {
+        return res.status(200).json(data);
+      } else {
+        console.error('Response object does not have a status method');
+        return;
+      }
+    }
+    // return Error
+    if (res.status) {
+      return res.status(404).json(data);
+    } else {
+      console.error('Response object does not have a status method');
+      return;
+    }
+  } catch (error) {
+      console.error(`Error while getting users`, error.message);
+      next(error);
   }
 }
+
 
 // get user by id
 const getbyid = async (req, res, next) => {

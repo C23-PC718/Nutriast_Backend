@@ -21,7 +21,7 @@ const getbyid = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     // Create data to DB
-    const data = await intakeUsersService.createIntakeUsers(req.body);
+    const data = await intakeUsersService.createIntakeUsers(req);
     // if Return "Created / 201"
     if (data.code === 201)
     {

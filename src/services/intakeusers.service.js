@@ -23,11 +23,11 @@ async function getMultiple() {
 }
 
 async function getById(request) {
-  const { userId } = request.params
+  const { intakeUserId } = request.params;
   try {
-    const dbResult = await Users.findOne({ 
-      where: { userid: userId }, 
-      order: [['createdAt', 'ASC']],
+    const dbResult = await IntakeUsers.findOne({ 
+      where: { userid: intakeUserId }, 
+      order: [['createdAt', 'DESC']],
       attributes: ['healthstatus', 'feedback']
     });
     return {
@@ -37,7 +37,7 @@ async function getById(request) {
       data: dbResult,
     };
   }catch (error) {
-    console.error(err);
+    console.error(error);
     return {
       status: "Failed",
       code: 400,
@@ -47,7 +47,7 @@ async function getById(request) {
 }
 
 async function createIntakeUsers(request) {
-  const { userId } = request.params
+  const { userId } = request.params;
   // const user = await Users.findOne({
   //   where: { id: userId },
   // });

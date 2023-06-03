@@ -6,8 +6,10 @@ import { IntakeUsers } from "../models/intakeusers.model.js";
 import ResponseClass from "../models/response.model.js";
 
 async function getMultiple() {
+
   try {
-    const dbResult = await Users.findAll();
+    
+    const dbResult = await Users.findAll({});
     // Return the mapped in the response
     return {
       status: "success",
@@ -27,7 +29,7 @@ async function getMultiple() {
 
 async function getbyid(request){
   
-  const { userId } = request.params.id
+  const { userId } = request.params 
 
   try {
 
@@ -72,13 +74,13 @@ async function registerUsers(requestBody) {
     responseError.message = "Please fill all field correctly!";
     return responseError;
   } else {
-    let need = {
-      "fatneed" : 1,
-      "caloryneed" : 1,
-      "fiberneed" : 1,
-      "carbohidrateneed" : 1,
-      "proteinneed" : 1,
-    }
+    // let need = {
+    //   "fatneed" : 1,
+    //   "caloryneed" : 1,
+    //   "fiberneed" : 1,
+    //   "carbohidrateneed" : 1,
+    //   "proteinneed" : 1,
+    // }
       
     const emailRegexp =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -105,11 +107,11 @@ async function registerUsers(requestBody) {
             gender: requestBody.gender,
             height: requestBody.height,
             weight: requestBody.weight,
-            fatneed: need.fatneed,
-            proteinneed: need.proteinneed,
-            caloryneedneed: need.caloryneed,
-            fiberneed: need.fiberneed,
-            carbohidrateneed: need,carbohidrateneed,
+            // fatneed: need.fatneed,
+            // proteinneed: need.proteinneed,
+            // caloryneedneed: need.caloryneed,
+            // fiberneed: need.fiberneed,
+            // carbohidrateneed: need,carbohidrateneed,
             cholesterol: requestBody.cholesterol,
             glucose: requestBody.glucose,
           });
@@ -125,11 +127,11 @@ async function registerUsers(requestBody) {
             gender: requestBody.gender,
             height: requestBody.height,
             weight: requestBody.weight,
-            fatneed: need.fatneed,
-            proteinneed: need.proteinneed,
-            caloryneedneed: need.caloryneed,
-            fiberneed: need.fiberneed,
-            carbohidrateneed: need,carbohidrateneed,
+            // fatneed: need.fatneed,
+            // proteinneed: need.proteinneed,
+            // caloryneedneed: need.caloryneed,
+            // fiberneed: need.fiberneed,
+            // carbohidrateneed: need.carbohidrateneed,
             cholesterol: requestBody.cholesterol,
             glucose: requestBody.glucose,
           };
