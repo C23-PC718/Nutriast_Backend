@@ -35,8 +35,14 @@ async function getbyid(request){
 
     const dbResult = await Users.findOne({ 
       where: { id: userId }, 
-      attributes: ['username', 'email', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed']
+      attributes: ['username', 'email', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed', 'cardiovascular']
     });
+
+    // Calculate age based on birthdate
+    const birthdate = new Date(dbResult.birthdate);
+    const ageDiffMs = Date.now() - birthdate.getTime();
+    const ageDate = new Date(ageDiffMs);
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
     
 
     // Return the mapped Users in the response
@@ -44,7 +50,7 @@ async function getbyid(request){
       status: "success", 
       code : 200,
       message : 'Fetching user successfully!',
-      data : dbResult
+      data : { ...dbResult.toJSON(), age }
     }
     
   } catch (err) {
