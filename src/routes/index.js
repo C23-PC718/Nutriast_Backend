@@ -11,6 +11,7 @@ router.get('/users/:userId', usersController.getbyid); //ok
 router.post('/register', usersController.register); //ok
 router.post('/login', usersController.login); //ok
 router.delete('/logout', usersController.logout) //ok
+//put
 
 /* intakeusers */
 router.get('/intakeusers', intakeusersController.get); //ok
