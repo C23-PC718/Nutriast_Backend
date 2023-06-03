@@ -39,8 +39,6 @@ const register = async(req, res, next) =>  {
   }
 }
 
-
-
 // login function
 const login = async(req, res) => {
   try {

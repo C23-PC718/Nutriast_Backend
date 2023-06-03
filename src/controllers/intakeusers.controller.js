@@ -9,6 +9,14 @@ const get = async (req, res, next) => {
   }
 }
 
+const getbyid = async (req, res, next) => {
+  try {
+    res.json(await intakeUsersService.getById(req));
+  } catch (err) {
+      console.error(`Error while getting intake user by id`, err.message);
+      next(err);
+  }
+}
 
 const create = async (req, res, next) => {
   try {
@@ -30,5 +38,6 @@ const create = async (req, res, next) => {
 
 export default {
   get,
+  getbyid,
   create
 }

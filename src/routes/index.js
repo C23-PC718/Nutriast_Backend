@@ -13,7 +13,8 @@ router.post('/login', usersController.login);
 router.delete('/logout', usersController.logout)
 
 /* intakeusers */
-router.get('/intakeusers', intakeusersController.get);
+router.get('/intakeusers', verifyToken, intakeusersController.get);
+router.get('/intakeusers/:id', verifyToken, intakeusersController.getbyid);
 router.post('/intakeusers/:id', verifyToken, intakeusersController.create);
 
 
