@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Users } from "../models/users.model.js";
+import { IntakeUsers } from "../models/intakeusers.model.js";
 import ResponseClass from "../models/response.model.js";
 
 async function getMultiple() {
@@ -24,7 +25,7 @@ async function getMultiple() {
   }
 }
 
-async function getById(request){
+async function getbyid(request){
   
   const { userId } = request.params.id
 
@@ -32,13 +33,6 @@ async function getById(request){
 
     const dbResult = await Users.findOne({ 
       where: { id: userId }, 
-      // include: [
-      //   { 
-      //     model: Users, 
-      //     as: 'usersDetail',
-      //     attributes: ['username', 'email', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed'] 
-      //   } 
-      // ],
       attributes: ['username', 'email', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed']
     });
     
@@ -288,7 +282,7 @@ function generateToken(userRegistered) {
 
 export default {
   getMultiple,
-  getById,
+  getbyid,
   registerUsers,
   loginUsers,
   logoutUsers,

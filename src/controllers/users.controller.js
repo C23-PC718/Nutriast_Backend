@@ -1,7 +1,8 @@
 import usersService from "../services/users.service.js";
 import ResponseClass from "../models/response.model.js";
 
-const get = async (req, res, next) => {
+// get all users
+const get = async (res, next) => {
   try {
     res.json(await usersService.getMultiple());
   } catch (err) {
@@ -10,8 +11,25 @@ const get = async (req, res, next) => {
   }
 }
 
+// get user by id
+const getbyid = async (req, res, next) => {
+  try {
+    const data = await usersService.getbyid(req);
 
-//register function
+    if (data.code === 200)
+    {
+      // send response
+      return res.status(200).json(data);
+    }
+    // return Error
+    return res.status(404).json(data);
+  } catch (err) {
+      console.error(`Error while getting user by id`, err.message);
+      next(err);
+  }
+}
+
+// register function
 const register = async(req, res, next) =>  {
   try {
       res.json(await usersService.registerUsers(req.body));
@@ -23,22 +41,22 @@ const register = async(req, res, next) =>  {
 
 
 
-//login function
+// login function
 const login = async(req, res) => {
   try {
       var loginResult = await usersService.loginUsers(req.body);
 
-      //if login result is success
+      // if login result is success
       if (loginResult.code == 200) {
           var responseSuccess = new ResponseClass.SuccessResponse()
 
-          //return response cookie with refresh_token
+          // return response cookie with refresh_token
           res.cookie('refreshToken', loginResult.refresh_token, {
               httpOnly: true,
-              maxAge: 24 * 60 * 60 * 1000
+              // maxAge: 24 * 60 * 60 * 1000
           });
           
-          //return response
+          // return response
           responseSuccess.message = "Login Success"
           responseSuccess.data = {
               object: "authentication_token",
@@ -50,7 +68,7 @@ const login = async(req, res) => {
   
           res.json(responseSuccess);
       }else{
-          //return error response
+          // return error response
           res.json(loginResult);
       }
       
@@ -78,6 +96,7 @@ const logout = async(req, res, next) => {
 
 export default {
   get,
+  getbyid,
   login,
   register,
   logout
