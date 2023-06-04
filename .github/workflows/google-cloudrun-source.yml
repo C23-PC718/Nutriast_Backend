@@ -10,7 +10,7 @@ env:
   PROJECT_ID: nutriastbackend
   REGION: asia-southeast2
   # project-name but it can be anything you want
-  REPO_NAME: Nutriast_Backend
+  REPO_NAME: nutriast_backend
 
 jobs:
   build-and-deploy:
