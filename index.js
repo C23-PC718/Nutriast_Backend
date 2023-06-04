@@ -17,6 +17,8 @@ app.use(
   })
 );
 
+// AppRUN
+
 // app.use(cors({
 //   origin: '*',
 //   allowedHeaders: ['Content-Type', 'Authorization']
