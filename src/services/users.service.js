@@ -73,9 +73,10 @@ async function registerUsers(requestBody) {
     !requestBody.birthdate ||
     !requestBody.gender ||
     !requestBody.height ||
-    !requestBody.weight ||
-    !requestBody.cholesterol ||
-    !requestBody.glucose
+    !requestBody.weight 
+    // ||
+    // !requestBody.cholesterol ||
+    // !requestBody.glucose
   ) {
     responseError.message = "Please fill all field correctly!";
     return responseError;
@@ -118,8 +119,8 @@ async function registerUsers(requestBody) {
             // caloryneedneed: need.caloryneed,
             // fiberneed: need.fiberneed,
             // carbohidrateneed: need,carbohidrateneed,
-            cholesterol: requestBody.cholesterol,
-            glucose: requestBody.glucose,
+            // cholesterol: requestBody.cholesterol,
+            // glucose: requestBody.glucose,
           });
 
           //return response success
@@ -138,8 +139,8 @@ async function registerUsers(requestBody) {
             // caloryneedneed: need.caloryneed,
             // fiberneed: need.fiberneed,
             // carbohidrateneed: need.carbohidrateneed,
-            cholesterol: requestBody.cholesterol,
-            glucose: requestBody.glucose,
+            // cholesterol: requestBody.cholesterol,
+            // glucose: requestBody.glucose,
           };
           return responseSuccess;
         } catch (error) {

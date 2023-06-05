@@ -39,11 +39,9 @@ export const Users = db.define('users', {
     },
     cholesterol: {
         type: DataTypes.INTEGER,
-        allowNull: false,
     },
     glucose: {
         type: DataTypes.INTEGER,
-        allowNull: false,
     },
     cardiovascular: {
         type: DataTypes.STRING
