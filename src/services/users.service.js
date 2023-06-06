@@ -66,11 +66,12 @@ async function getbyid(request){
 async function registerUsers(requestBody) {
   var responseError = new ResponseClass.ErrorResponse();
   var responseSuccess = new ResponseClass.SuccessResponse();
+  const parsedBirthdate = new Date(requestBody.birthdate);
   if (
     !requestBody.email ||
     !requestBody.password ||
     !requestBody.username ||
-    !requestBody.birthdate ||
+    !parsedBirthdate ||
     !requestBody.gender ||
     !requestBody.height ||
     !requestBody.weight 
@@ -110,7 +111,7 @@ async function registerUsers(requestBody) {
             email: requestBody.email,
             password: hashPass,
             username: requestBody.username,
-            birthDate: requestBody.birthdate,
+            birthdate: parsedBirthdate,
             gender: requestBody.gender,
             height: requestBody.height,
             weight: requestBody.weight,
@@ -130,7 +131,7 @@ async function registerUsers(requestBody) {
             email: requestBody.email,
             password: requestBody.password,
             username: requestBody.username,
-            birthdate: requestBody.birthdate,
+            birthdate: parsedBirthdate,
             gender: requestBody.gender,
             height: requestBody.height,
             weight: requestBody.weight,

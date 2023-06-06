@@ -23,7 +23,6 @@ export const Users = db.define('users', {
     birthdate: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW
     },
     gender: {
         type: DataTypes.STRING,
