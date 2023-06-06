@@ -42,6 +42,15 @@ export const Users = db.define('users', {
     glucose: {
         type: DataTypes.INTEGER,
     },
+    smoke: {
+        type: DataTypes.INTEGER,
+    },
+    alcho: {
+        type: DataTypes.INTEGER,
+    },
+    active: {
+        type: DataTypes.INTEGER,
+    },
     cardiovascular: {
         type: DataTypes.STRING
     },

@@ -35,7 +35,7 @@ async function getbyid(request){
 
     const dbResult = await Users.findOne({ 
       where: { id: userId }, 
-      attributes: ['username', 'email', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed', 'cardiovascular']
+      attributes: ['username', 'email', 'gender', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed', 'smoke', 'alcho', 'active', 'cardiovascular']
     });
 
     // Calculate age based on birthdate
