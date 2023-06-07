@@ -14,8 +14,8 @@ router.delete('/logout', usersController.logout) //ok
 //put
 
 /* intakeusers */
-router.get('/intakeusers', verifyToken, intakeusersController.get); //ok
-router.get('/intakeusers/:intakeUserId', verifyToken, intakeusersController.getbyid); //ok
-router.post('/intakeusers/:userId', verifyToken, intakeusersController.create); //ok
+router.get('/intakeusers', intakeusersController.get); //ok
+router.get('/intakeusers/:intakeUserId', intakeusersController.getbyid); //ok
+router.post('/intakeusers/:userId', intakeusersController.create); //ok
 
 export default router;

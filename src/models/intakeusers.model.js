@@ -11,13 +11,10 @@ export const IntakeUsers = db.define('intakeuser', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    healthstatus: {
-        type: DataTypes.STRING,
-    },
     fatintake: {
         type: DataTypes.FLOAT,
     },
-    proteinneed: {
+    proteinintake: {
         type: DataTypes.FLOAT,
     },
     caloryintake: {
