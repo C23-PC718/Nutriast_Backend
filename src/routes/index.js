@@ -18,17 +18,4 @@ router.get('/intakeusers', verifyToken, intakeusersController.get); //ok
 router.get('/intakeusers/:intakeUserId', verifyToken, intakeusersController.getbyid); //ok
 router.post('/intakeusers/:userId', verifyToken, intakeusersController.create); //ok
 
-
-// {
-//     "username":"rafi",
-//     "email":"test@gmail.com",
-//     "password":"test",
-//     "birthdate":"2002-05-05",
-//     "gender":"male",
-//     "height":1.0,
-//     "weight":1.0,
-//     "cholesterol":1,
-//     "glucose":1
-//   }
-
 export default router;

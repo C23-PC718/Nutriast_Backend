@@ -6,9 +6,7 @@ import { IntakeUsers } from "../models/intakeusers.model.js";
 import ResponseClass from "../models/response.model.js";
 
 async function getMultiple() {
-
   try {
-    
     const dbResult = await Users.findAll({});
     // Return the mapped in the response
     return {
@@ -27,15 +25,29 @@ async function getMultiple() {
   }
 }
 
-async function getbyid(request){
-  
-  const { userId } = request.params 
+async function getbyid(request) {
+  const { userId } = request.params;
 
   try {
-
-    const dbResult = await Users.findOne({ 
-      where: { id: userId }, 
-      attributes: ['username', 'email', 'gender', 'birthdate', 'height', 'weight', 'fatneed', 'proteinneed', 'caloryneed', 'fiberneed', 'carbohidrateneed', 'smoke', 'alcho', 'active', 'cardiovascular']
+    const dbResult = await Users.findOne({
+      where: { id: userId },
+      attributes: [
+        "username",
+        "email",
+        "gender",
+        "birthdate",
+        "height",
+        "weight",
+        "fatneed",
+        "proteinneed",
+        "caloryneed",
+        "fiberneed",
+        "carbohidrateneed",
+        "smoke",
+        "alcho",
+        "active",
+        "cardiovascular",
+      ],
     });
 
     // Calculate age based on birthdate
@@ -43,23 +55,21 @@ async function getbyid(request){
     const ageDiffMs = Date.now() - birthdate.getTime();
     const ageDate = new Date(ageDiffMs);
     const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-    
 
     // Return the mapped Users in the response
     return {
-      status: "success", 
-      code : 200,
-      message : 'Fetching user successfully!',
-      data : { ...dbResult.toJSON(), age }
-    }
-    
+      status: "success",
+      code: 200,
+      message: "Fetching user successfully!",
+      data: { ...dbResult.toJSON(), age },
+    };
   } catch (err) {
     console.error(err);
     return {
-      status: "Failed", 
-      code : 400,
-      message : 'Error fetching user!'
-    }
+      status: "Failed",
+      code: 400,
+      message: "Error fetching user!",
+    };
   }
 }
 
@@ -74,22 +84,38 @@ async function registerUsers(requestBody) {
     !parsedBirthdate ||
     !requestBody.gender ||
     !requestBody.height ||
-    !requestBody.weight 
-    // ||
-    // !requestBody.cholesterol ||
-    // !requestBody.glucose
+    !requestBody.weight
   ) {
     responseError.message = "Please fill all field correctly!";
     return responseError;
   } else {
-    // let need = {
-    //   "fatneed" : 1,
-    //   "caloryneed" : 1,
-    //   "fiberneed" : 1,
-    //   "carbohidrateneed" : 1,
-    //   "proteinneed" : 1,
-    // }
-      
+    // variable initialize
+    let age = 0
+    let fatneed = 0.8 * requestBody.weight // gram. 0,8 x Berat Badan (kg)
+    let proteinneed = 0.8 * requestBody.weight // gram. 0,8 x Berat Badan (kg)
+    let caloryneed = 0.0 // kcal. BMR x Aktivitas Fisik
+    let fiberneed = 30 // adult 25-30 gram
+    let carbohidrateneed = 0.0 // 45-65% total calory intake.
+    let bmr = 0.0
+    let lightphysical = 1.375 // pekerja kantor yang menggunakan komputer
+    let mediumphysical = 1.55 // olahragawan biasa
+    let hardphysical = 1.725 // atlet atau orang yang melakukan pekerjaan fisik berat
+    
+    // find age
+    const birthdate = new Date(requestBody.birthdate);
+    const ageDiffMs = Date.now() - birthdate.getTime();
+    const ageDate = new Date(ageDiffMs);
+    age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    // count BMR
+    if (requestBody.gender == "male"){
+      // BMR = 88,362 + (13,397 x berat badan dalam kg) + (4,799 x tinggi badan dalam cm) – (5,677 x usia dalam tahun)
+      bmr = (88.362 + (13.397 * requestBody.weight) + (4.799 * requestBody.height) - (5.677 * age))
+    }else if (requestBody.gender == "female"){
+      // BMR = 447,593 + (9,247 x berat badan dalam kg) + (3,098 x tinggi badan dalam cm) – (4,330 x usia dalam tahun)
+      bmr = (447.593 + (9.247 * requestBody.weight) + (3.098 * requestBody.height) - (4.330 * age))
+    }
+    caloryneed = bmr * mediumphysical
+
     const emailRegexp =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     if (emailRegexp.test(requestBody.email) == false) {
@@ -115,13 +141,11 @@ async function registerUsers(requestBody) {
             gender: requestBody.gender,
             height: requestBody.height,
             weight: requestBody.weight,
-            // fatneed: need.fatneed,
-            // proteinneed: need.proteinneed,
-            // caloryneedneed: need.caloryneed,
-            // fiberneed: need.fiberneed,
-            // carbohidrateneed: need,carbohidrateneed,
-            // cholesterol: requestBody.cholesterol,
-            // glucose: requestBody.glucose,
+            fatneed: fatneed,
+            proteinneed: proteinneed,
+            caloryneed: caloryneed,
+            fiberneed: fiberneed,
+            carbohidrateneed: carbohidrateneed,
           });
 
           //return response success
@@ -135,13 +159,11 @@ async function registerUsers(requestBody) {
             gender: requestBody.gender,
             height: requestBody.height,
             weight: requestBody.weight,
-            // fatneed: need.fatneed,
-            // proteinneed: need.proteinneed,
-            // caloryneedneed: need.caloryneed,
-            // fiberneed: need.fiberneed,
-            // carbohidrateneed: need.carbohidrateneed,
-            // cholesterol: requestBody.cholesterol,
-            // glucose: requestBody.glucose,
+            fatneed: fatneed,
+            proteinneed: proteinneed,
+            caloryneed: caloryneed,
+            fiberneed: fiberneed,
+            carbohidrateneed: carbohidrateneed,
           };
           return responseSuccess;
         } catch (error) {
@@ -164,7 +186,7 @@ async function registerUsers(requestBody) {
 async function loginUsers(requestbody) {
   var responseError = new ResponseClass.ErrorResponse();
   if (!requestbody.email || !requestbody.password) {
-    responseError.message = "Email or Password missing";
+    responseError.message = "Email or Password missing!";
     return responseError;
   } else {
     //find email from request body in database
@@ -269,8 +291,7 @@ function generateToken(userRegistered) {
     { userId, name, email },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      // expiresIn: "120s",
-      expiresIn: "360d",
+      expiresIn: "120s",
     }
   );
 

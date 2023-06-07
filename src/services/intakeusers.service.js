@@ -48,9 +48,6 @@ async function getById(request) {
 
 async function createIntakeUsers(request) {
   const { userId } = request.params;
-  // const user = await Users.findOne({
-  //   where: { id: userId },
-  // });
   let status = "none"
   let feedback = "none"
   try {
@@ -59,6 +56,7 @@ async function createIntakeUsers(request) {
       id: intakeUserId,
       userid: userId,
       fatintake: request.body.fatintake,
+      proteinintake: request.body.proteinintake,
       caloryintake: request.body.caloryintake,
       fiberintake: request.body.fiberintake,
       carbohidrateintake: request.body.carbohidrateintake,
@@ -75,6 +73,7 @@ async function createIntakeUsers(request) {
         id: intakeUserId,
         userid: userId,
         fatintake: request.body.fatintake,
+        proteinintake: request.body.proteinintake,
         caloryintake: request.body.caloryintake,
         fiberintake: request.body.fiberintake,
         carbohidrateintake: request.body.carbohidrateintake,

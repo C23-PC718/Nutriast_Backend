@@ -17,6 +17,9 @@ export const IntakeUsers = db.define('intakeuser', {
     fatintake: {
         type: DataTypes.FLOAT,
     },
+    proteinneed: {
+        type: DataTypes.FLOAT,
+    },
     caloryintake: {
         type: DataTypes.FLOAT,
     },
