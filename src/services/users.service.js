@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { Users } from "../models/users.model.js";
 import { IntakeUsers } from "../models/intakeusers.model.js";
 import ResponseClass from "../models/response.model.js";
+import fetch from "node-fetch";
 
 async function getMultiple() {
   try {
@@ -73,6 +74,104 @@ async function getbyid(request) {
   }
 }
 
+async function predict(request) {
+  const { userId } = request.params;
+  const userdata = await Users.findOne({
+    where: { id: userId },
+  });
+
+  if (
+    request.body.cholesterol == null ||
+    request.body.gluc == null ||
+    request.body.ap_hi == null ||
+    request.body.ap_lo == null ||
+    request.body.smoke == null ||
+    request.body.alco == null ||
+    request.body.active == null
+  ) {
+    return {
+      status: "Failed",
+      code: 400,
+      message: "Fill the blank!",
+      data: {
+        cholesterol: request.body.cholesterol,
+        gluc: request.body.gluc,
+        ap_hi: request.body.ap_hi,
+        ap_lo: request.body.ap_lo,
+        smoke: request.body.smoke,
+        alco: request.body.alco,
+        active: request.body.active,
+      },
+    };
+  } else {
+    const birthdate = new Date(userdata.birthdate);
+    const ageDiffMs = Date.now() - birthdate.getTime();
+    const ageDate = new Date(ageDiffMs);
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    let gender = 0;
+    if (userdata.gender == "male") {
+      gender = 1;
+    } else if (userdata.gender == "female") {
+      gender = 2;
+    }
+    const data = {
+      age: age,
+      gender: gender,
+      height: userdata.height,
+      weight: userdata.weight,
+      ap_hi: request.body.ap_hi,
+      ap_lo: request.body.ap_lo,
+      cholesterol: request.body.cholesterol,
+      gluc: request.body.gluc,
+      smoke: request.body.smoke,
+      alco: request.body.alco,
+      active: request.body.active,
+    };
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const jsonData = await response.json();
+      let cardiovascular;
+      if (jsonData.prediction == 1) {
+        cardiovascular = "Aware";
+      } else if (jsonData.prediction == 0) {
+        cardiovascular = "Safe";
+      }
+
+      // update the database
+      const updateValues = {
+        cholesterol: request.body.cholesterol,
+        glucose: request.body.gluc,
+        cardiovascular: cardiovascular,
+        smoke: request.body.smoke,
+        alcho: request.body.alco,
+        active: request.body.active,
+      };
+      await Users.update(updateValues, { where: { id: userId } });
+
+      return {
+        status: "success",
+        code: 200,
+        message: "predict Success",
+        data: jsonData,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        status: "fail",
+        code: 500,
+        message: error,
+      };
+    }
+  }
+}
+
 async function registerUsers(requestBody) {
   var responseError = new ResponseClass.ErrorResponse();
   var responseSuccess = new ResponseClass.SuccessResponse();
@@ -90,31 +189,39 @@ async function registerUsers(requestBody) {
     return responseError;
   } else {
     // variable initialize
-    let age = 0
-    let fatneed = 0.8 * requestBody.weight // gram. 0,8 x Berat Badan (kg)
-    let proteinneed = 0.8 * requestBody.weight // gram. 0,8 x Berat Badan (kg)
-    let caloryneed = 0.0 // kcal. BMR x Aktivitas Fisik
-    let fiberneed = 30 // adult 25-30 gram
-    let carbohidrateneed = 0.0 // 45-65% total calory intake.
-    let bmr = 0.0
-    let lightphysical = 1.375 // pekerja kantor yang menggunakan komputer
-    let mediumphysical = 1.55 // olahragawan biasa
-    let hardphysical = 1.725 // atlet atau orang yang melakukan pekerjaan fisik berat
-    
+    let age = 0;
+    let fatneed = 0.8 * requestBody.weight; // gram. 0,8 x Berat Badan (kg)
+    let proteinneed = 0.8 * requestBody.weight; // gram. 0,8 x Berat Badan (kg)
+    let caloryneed = 0.0; // kcal. BMR x Aktivitas Fisik
+    let fiberneed = 30; // adult 25-30 gram
+    let carbohidrateneed = 0.0; // 45-65% total calory intake.
+    let bmr = 0.0;
+    let lightphysical = 1.375; // pekerja kantor yang menggunakan komputer
+    let mediumphysical = 1.55; // olahragawan biasa
+    let hardphysical = 1.725; // atlet atau orang yang melakukan pekerjaan fisik berat
+
     // find age
     const birthdate = new Date(requestBody.birthdate);
     const ageDiffMs = Date.now() - birthdate.getTime();
     const ageDate = new Date(ageDiffMs);
     age = Math.abs(ageDate.getUTCFullYear() - 1970);
     // count BMR
-    if (requestBody.gender == "male"){
+    if (requestBody.gender == "male") {
       // BMR = 88,362 + (13,397 x berat badan dalam kg) + (4,799 x tinggi badan dalam cm) – (5,677 x usia dalam tahun)
-      bmr = (88.362 + (13.397 * requestBody.weight) + (4.799 * requestBody.height) - (5.677 * age))
-    }else if (requestBody.gender == "female"){
+      bmr =
+        88.362 +
+        13.397 * requestBody.weight +
+        4.799 * requestBody.height -
+        5.677 * age;
+    } else if (requestBody.gender == "female") {
       // BMR = 447,593 + (9,247 x berat badan dalam kg) + (3,098 x tinggi badan dalam cm) – (4,330 x usia dalam tahun)
-      bmr = (447.593 + (9.247 * requestBody.weight) + (3.098 * requestBody.height) - (4.330 * age))
+      bmr =
+        447.593 +
+        9.247 * requestBody.weight +
+        3.098 * requestBody.height -
+        4.33 * age;
     }
-    caloryneed = bmr * mediumphysical
+    caloryneed = bmr * mediumphysical;
 
     const emailRegexp =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -315,6 +422,7 @@ function generateToken(userRegistered) {
 export default {
   getMultiple,
   getbyid,
+  predict,
   registerUsers,
   loginUsers,
   logoutUsers,
