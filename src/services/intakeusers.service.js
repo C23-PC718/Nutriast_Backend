@@ -1,6 +1,8 @@
 import { IntakeUsers } from "../models/intakeusers.model.js";
 import { Users } from "../models/users.model.js";
 import { v4 as uuidv4 } from "uuid";
+import { Op } from 'sequelize';
+import dataMakanan from '../Data/dataMakanan.json'assert {type: 'json'};
 
 async function getMultiple() {
   try {
@@ -22,22 +24,23 @@ async function getMultiple() {
   }
 }
 
-async function getById(request) {
+async function getHistory(request){
   const { intakeUserId } = request.params;
-  try {
-    const dbResult = await IntakeUsers.findOne({ 
-      where: { userid: intakeUserId }, 
-      order: [['createdAt', 'DESC']],
-      attributes: ['healthstatus', 'feedback']
+  
+  try{
+    const dbResult = await IntakeUsers.findAll({
+      where: {
+        userid: intakeUserId,
+        // order: [["createdAt", "DESC"]],
+      },
     });
-    return {
+    return{
       status: "success",
       code: 200,
       message: "Fetching intake users id successfully!",
       data: dbResult,
-    };
-  }catch (error) {
-    console.error(error);
+    }
+  }catch(error){
     return {
       status: "Failed",
       code: 400,
@@ -46,50 +49,117 @@ async function getById(request) {
   }
 }
 
+async function getById(request) {
+  const { intakeUserId } = request.params;
+  // console.log(intakeUserId)
+  // cek apakah hari ini sudah checkout?
+  const today = new Date(); // Get the current date and time
+  today.setHours(0, 0, 0, 0); // Set the time to 00:00:00.000
+  const check = await IntakeUsers.findOne({
+    where: {
+      userid: intakeUserId,
+      createdAt: {
+        [Op.gte]: today,
+      },
+      
+      // order: [["createdAt", "DESC"]],
+    },attributes: ["healthstatus", "feedback"],
+  });
+  // console.log(check)
+  try {
+    if(check == null){
+      return {
+        status: "success",
+        code: 200,
+        message: "Fetching intake users id history successfully!",
+        data: {
+          "healthstatus":"Unknown", "feedback":"You haven't fill intake form for today."
+        },
+      };
+    }else{
+      return {
+        status: "success",
+        code: 200,
+        message: "Fetching intake users id successfully!",
+        data: check,
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return {
+      status: "Failed",
+      code: 400,
+      message: "Error fetching intake user hstory BY ID",
+    };
+  }
+}
+
 async function createIntakeUsers(request) {
+
+  let totalFat = 0
+  let totalProtein = 0
+  let totalCalory = 0
+  let totalFiber = 0
+  let totalCarbohidrate = 0
+  let inputData = request.body
+
+  for (let food in inputData) {
+    let foodData = inputData[food];
+    let jsonFileData = dataMakanan[food];
+  
+    totalFat += foodData * jsonFileData.fat;
+    totalProtein += foodData * jsonFileData.protein;
+    totalCalory += foodData * jsonFileData.calory;
+    totalFiber += foodData * jsonFileData.fiber;
+    totalCarbohidrate += foodData * jsonFileData.carbohidrate;
+  }
+
   const { userId } = request.params;
-  const userdata = await Users.findOne({ 
-    where: { id: userId }, 
+  const userdata = await Users.findOne({
+    where: { id: userId },
   });
   let lackof = [];
-  if (request.body.fatintake < userdata.fatneed){
-    lackof.push('fat');
+  if (totalFat < userdata.fatneed) {
+    lackof.push("fat");
   }
-  if (request.body.proteinintake < userdata.proteinneed){
-    lackof.push('protein');
+  if (totalProtein < userdata.proteinneed) {
+    lackof.push("protein");
   }
-  if (request.body.caloryintake < userdata.caloryneed){
-    lackof.push('calory');
+  if (totalCalory < userdata.caloryneed) {
+    lackof.push("calory");
   }
-  if (request.body.fiberintake < userdata.fiberneed){
-    lackof.push('fiber');
+  if (totalFiber < userdata.fiberneed) {
+    lackof.push("fiber");
   }
-  let carbohidrateneed = 50/100 * request.body.caloryintake
-  if (request.body.carbohidrateintake < carbohidrateneed){
-    lackof.push('carbohidrate');
+  let carbohidrateneed = (50 / 100) * request.body.caloryintake;
+  if (totalCarbohidrate < carbohidrateneed) {
+    lackof.push("carbohidrate");
   }
-  let feedback = "none"
-  let status = "none"
+  let feedback = "none";
+  let status = "none";
   if (lackof.length === 0) {
-    feedback = "Great job on meeting your daily nutrition needs! Keep up the good work and continue to prioritize a balanced and healthy diet. Remember to listen to your body and make adjustments as necessary to maintain optimal health."
+    feedback =
+      "Great job on meeting your daily nutrition needs! Keep up the good work and continue to prioritize a balanced and healthy diet. Remember to listen to your body and make adjustments as necessary to maintain optimal health.";
     status = "EXCELENT";
-  }else {
-    feedback = `You are not meeting your daily nutrition needs for ${lackof.join(", ")}. Consider adjusting your diet to include more of these nutrients.`;
+  } else {
+    feedback = `You are not meeting your daily nutrition needs for ${lackof.join(
+      ", "
+    )}. Consider adjusting your diet to include more of these nutrients.`;
     status = "BE AWARE";
   }
-  
+
   try {
     const intakeUserId = uuidv4();
     await IntakeUsers.create({
       id: intakeUserId,
       userid: userId,
-      fatintake: request.body.fatintake,
-      proteinintake: request.body.proteinintake,
-      caloryintake: request.body.caloryintake,
-      fiberintake: request.body.fiberintake,
-      carbohidrateintake: request.body.carbohidrateintake,
-      healthstatus:status,
-      feedback:feedback,
+      fatintake: totalFat,
+      proteinintake: totalProtein,
+      caloryintake: totalCalory,
+      fiberintake: totalFiber,
+      carbohidrateintake: totalCarbohidrate,
+      healthstatus: status,
+      feedback: feedback,
     });
     return {
       status: "success",
@@ -98,13 +168,13 @@ async function createIntakeUsers(request) {
       data: {
         id: intakeUserId,
         userid: userId,
-        fatintake: request.body.fatintake,
-        proteinintake: request.body.proteinintake,
-        caloryintake: request.body.caloryintake,
-        fiberintake: request.body.fiberintake,
-        carbohidrateintake: request.body.carbohidrateintake,
-        healthstatus:status,
-        feedback:feedback,
+        fatintake: totalFat,
+        proteinintake: totalProtein,
+        caloryintake: totalCalory,
+        fiberintake: totalFiber,
+        carbohidrateintake: totalCarbohidrate,
+        healthstatus: status,
+        feedback: feedback,
       },
     };
   } catch (error) {
@@ -113,21 +183,21 @@ async function createIntakeUsers(request) {
       status: "Failed",
       code: 400,
       message: "Error creating intake users!",
-        userid: userId,
-        fatintake: request.body.fatintake,
-        proteinintake: request.body.proteinintake,
-        caloryintake: request.body.caloryintake,
-        fiberintake: request.body.fiberintake,
-        carbohidrateintake: request.body.carbohidrateintake,
-        healthstatus:status,
-        feedback:feedback,
+      userid: userId,
+      fatintake: totalFat,
+      proteinintake: totalProtein,
+      caloryintake: totalCalory,
+      fiberintake: totalFiber,
+      carbohidrateintake: totalCarbohidrate,
+      healthstatus: status,
+      feedback: feedback,
     };
   }
 }
 
-
 export default {
   getMultiple,
   getById,
+  getHistory,
   createIntakeUsers,
 };

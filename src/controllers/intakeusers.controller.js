@@ -18,6 +18,15 @@ const getbyid = async (req, res, next) => {
   }
 }
 
+const gethistory = async (req, res, next) => {
+  try {
+    res.json(await intakeUsersService.getHistory(req));
+  } catch (err) {
+      console.error(`Error while getting intake user history by id`, err.message);
+      next(err);
+  }
+}
+
 const create = async (req, res, next) => {
   try {
     const data = await intakeUsersService.createIntakeUsers(req);
@@ -34,5 +43,6 @@ const create = async (req, res, next) => {
 export default {
   get,
   getbyid,
+  gethistory,
   create
 }
