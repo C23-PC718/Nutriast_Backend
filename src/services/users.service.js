@@ -51,6 +51,8 @@ async function getbyid(request) {
       ],
     });
 
+    const gender = dbResult.gender.charAt(0).toUpperCase() + dbResult.gender.slice(1);
+
     // Calculate age based on birthdate
     const birthdate = new Date(dbResult.birthdate);
     const ageDiffMs = Date.now() - birthdate.getTime();
@@ -62,7 +64,7 @@ async function getbyid(request) {
       status: "success",
       code: 200,
       message: "Fetching user successfully!",
-      data: { ...dbResult.toJSON(), age },
+      data: { ...dbResult.toJSON(), gender, age },
     };
   } catch (err) {
     console.error(err);
@@ -129,7 +131,7 @@ async function predict(request) {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/predict", {
+      const response = await fetch("https://nutriastml-2qo27ggsha-et.a.run.app/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -398,7 +400,8 @@ function generateToken(userRegistered) {
     { userId, name, email },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "120s",
+      // expiresIn: "120s",
+      expiresIn: "120d",
     }
   );
 
