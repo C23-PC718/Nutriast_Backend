@@ -6,16 +6,16 @@ import intakeusersController from "../controllers/intakeusers.controller.js";
 const router = express.Router();
 
 /* users */
-router.get("/users",  usersController.get); //ok
-router.get("/users/:userId",  usersController.getbyid); //ok
+router.get("/users", verifyToken, usersController.get); //ok
+router.get("/users/:userId",verifyToken, usersController.getbyid); //ok
 router.post("/register", usersController.register); //ok
 router.post("/login", usersController.login); //ok
 router.delete("/logout", usersController.logout); //ok
-router.post("/predict/:userId",  usersController.predict);
+router.post("/predict/:userId", verifyToken, usersController.predict);
 
 /* intakeusers */
-router.get("/intakeusers",  intakeusersController.get); //ok
-router.get("/intakeusers/:intakeUserId",  intakeusersController.getbyid); //ok
-router.post("/intakeusers/:userId",  intakeusersController.create); //ok
+router.get("/intakeusers", verifyToken, intakeusersController.get); //ok
+router.get("/intakeusers/:intakeUserId", verifyToken, intakeusersController.getbyid); //ok
+router.post("/intakeusers/:userId", verifyToken, intakeusersController.create); //ok
 
 export default router;
