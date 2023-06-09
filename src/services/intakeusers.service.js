@@ -31,8 +31,9 @@ async function getHistory(request){
     const dbResult = await IntakeUsers.findAll({
       where: {
         userid: intakeUserId,
-        // order: [["createdAt", "DESC"]],
       },
+      // attributes: ["createdAt"],
+      order: [['createdAt', 'DESC']],
     });
     return{
       status: "success",
@@ -73,7 +74,7 @@ async function getById(request) {
         code: 200,
         message: "Fetching intake users id history successfully!",
         data: {
-          "healthstatus":"Unknown", "feedback":"You haven't fill intake form for today."
+          "healthstatus":"UNKNOWN", "feedback":"You haven't fill intake form for today."
         },
       };
     }else{
@@ -148,6 +149,10 @@ async function createIntakeUsers(request) {
     status = "BE AWARE";
   }
 
+  const createdAtValue = new Date();
+  const updatedAtValue = new Date();
+  createdAtValue.setHours(createdAtValue.getHours() + 7);
+  updatedAtValue.setHours(updatedAtValue.getHours() + 7);
   try {
     const intakeUserId = uuidv4();
     await IntakeUsers.create({
@@ -160,6 +165,8 @@ async function createIntakeUsers(request) {
       carbohidrateintake: totalCarbohidrate,
       healthstatus: status,
       feedback: feedback,
+      createdAt: createdAtValue,
+      updatedAt: updatedAtValue,
     });
     return {
       status: "success",

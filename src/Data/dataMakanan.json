@@ -1,107 +1,107 @@
 {
-    "nasi":{
-      "fat":10,
-      "protein":10,
-      "calory":20,
-      "fiber":10,
-      "carbohidrate":10
-    },
-    "telur":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "dagingayam ":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "dagingsapi ":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "tahu":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "tempe":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "mie":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "kentang":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "susu":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "kopi":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "teh":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "ikan":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "pisang":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "alpukat":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    },
-    "pepaya":{
-      "fat":0,
-      "protein":0,
-      "calory":0,
-      "fiber":0,
-      "carbohidrate":0
-    }
+  "rice": {
+    "fat": 0.003,
+    "protein": 0.027,
+    "calory": 0.13,
+    "fiber": 0.018,
+    "carbohidrate": 0.28
+  },
+  "egg": {
+    "fat": 0.095,
+    "protein": 0.126,
+    "calory": 0.155,
+    "fiber": 0,
+    "carbohidrate": 0.011
+  },
+  "chicken": {
+    "fat": 0.036,
+    "protein": 0.21,
+    "calory": 0.165,
+    "fiber": 0,
+    "carbohidrate": 0
+  },
+  "beef": {
+    "fat": 0.18,
+    "protein": 0.26,
+    "calory": 0.25,
+    "fiber": 0,
+    "carbohidrate": 0
+  },
+  "tofu": {
+    "fat": 0.048,
+    "protein": 0.08,
+    "calory": 0.07,
+    "fiber": 0.005,
+    "carbohidrate": 0.017
+  },
+  "soybean cake": {
+    "fat": 0.11,
+    "protein": 0.19,
+    "calory": 0.196,
+    "fiber": 0.1,
+    "carbohidrate": 0.09
+  },
+  "noodle": {
+    "fat": 0.011,
+    "protein": 0.045,
+    "calory": 0.138,
+    "fiber": 0.014,
+    "carbohidrate": 0.26
+  },
+  "potato": {
+    "fat": 0.001,
+    "protein": 0.02,
+    "calory": 0.077,
+    "fiber": 0.022,
+    "carbohidrate": 0.17
+  },
+  "milk": {
+    "fat": 0.037,
+    "protein": 0.034,
+    "calory": 0.042,
+    "fiber": 0,
+    "carbohidrate": 0.048
+  },
+  "coffee": {
+    "fat": 0.003,
+    "protein": 0.001,
+    "calory": 0.001,
+    "fiber": 0,
+    "carbohidrate": 0.003
+  },
+  "tea": {
+    "fat": 0,
+    "protein": 0,
+    "calory": 0.001,
+    "fiber": 0,
+    "carbohidrate": 0.004
+  },
+  "fish": {
+    "fat": 0.006,
+    "protein": 0.02,
+    "calory": 0.015,
+    "fiber": 0,
+    "carbohidrate": 0
+  },
+  "banana": {
+    "fat": 0.002,
+    "protein": 0.011,
+    "calory": 0.096,
+    "fiber": 0.026,
+    "carbohidrate": 0.23
+  },
+  "avocado": {
+    "fat": 0.147,
+    "protein": 0.02,
+    "calory": 0.16,
+    "fiber": 0.067,
+    "carbohidrate": 0.085
+  },
+  "papaya": {
+    "fat": 0.004,
+    "protein": 0.005,
+    "calory": 0.043,
+    "fiber": 0.017,
+    "carbohidrate": 0.11
+  }
 }
