@@ -193,7 +193,6 @@ async function registerUsers(requestBody) {
     // variable initialize
     let age = 0;
     let fatneed = 0.8 * requestBody.weight; // gram. 0,8 x Berat Badan (kg)
-    let proteinneed = 0.8 * requestBody.weight; // gram. 0,8 x Berat Badan (kg)
     let caloryneed = 0.0; // kcal. BMR x Aktivitas Fisik
     let fiberneed = 30; // adult 25-30 gram
     let carbohidrateneed = 0.0; // 45-65% total calory intake.
@@ -207,7 +206,7 @@ async function registerUsers(requestBody) {
     const ageDiffMs = Date.now() - birthdate.getTime();
     const ageDate = new Date(ageDiffMs);
     age = Math.abs(ageDate.getUTCFullYear() - 1970);
-    // count BMR
+    // count BMR(Basal Metabolic Rate) Harris-Benedict
     if (requestBody.gender == "male") {
       // BMR = 88,362 + (13,397 x berat badan dalam kg) + (4,799 x tinggi badan dalam cm) – (5,677 x usia dalam tahun)
       bmr =
@@ -224,6 +223,7 @@ async function registerUsers(requestBody) {
         4.33 * age;
     }
     caloryneed = bmr * mediumphysical;
+    let proteinneed = 0.15 * caloryneed; // 15% calory neeed
 
     const emailRegexp =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;

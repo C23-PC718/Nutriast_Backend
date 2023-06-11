@@ -132,7 +132,7 @@ async function createIntakeUsers(request) {
   if (totalFiber < userdata.fiberneed) {
     lackof.push("fiber");
   }
-  let carbohidrateneed = (50 / 100) * request.body.caloryintake;
+  let carbohidrateneed = (65 / 100) * request.body.caloryintake;
   if (totalCarbohidrate < carbohidrateneed) {
     lackof.push("carbohidrate");
   }
