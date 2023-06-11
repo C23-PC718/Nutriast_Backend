@@ -97,82 +97,80 @@ async function getById(request) {
 
 async function createIntakeUsers(request) {
 
-  let totalFat = 0
-  let totalProtein = 0
-  let totalCalory = 0
-  let totalFiber = 0
-  let totalCarbohidrate = 0
-  let inputData = request.body
-
-  for (let food in inputData) {
-    let foodData = inputData[food];
-    let jsonFileData = dataMakanan[food];
-  
-    totalFat += foodData * jsonFileData.fat;
-    totalProtein += foodData * jsonFileData.protein;
-    totalCalory += foodData * jsonFileData.calory;
-    totalFiber += foodData * jsonFileData.fiber;
-    totalCarbohidrate += foodData * jsonFileData.carbohidrate;
-  }
-
   const { userId } = request.params;
-  const userdata = await Users.findOne({
-    where: { id: userId },
-  });
-  let lackof = [];
-  if (totalFat < userdata.fatneed) {
-    lackof.push("fat");
-  }
-  if (totalProtein < userdata.proteinneed) {
-    lackof.push("protein");
-  }
-  if (totalCalory < userdata.caloryneed) {
-    lackof.push("calory");
-  }
-  if (totalFiber < userdata.fiberneed) {
-    lackof.push("fiber");
-  }
-  let carbohidrateneed = (65 / 100) * request.body.caloryintake;
-  if (totalCarbohidrate < carbohidrateneed) {
-    lackof.push("carbohidrate");
-  }
-  let feedback = "none";
-  let status = "none";
-  if (lackof.length === 0) {
-    feedback =
-      "Great job on meeting your daily nutrition needs! Keep up the good work and continue to prioritize a balanced and healthy diet. Remember to listen to your body and make adjustments as necessary to maintain optimal health.";
-    status = "EXCELENT";
-  } else {
-    feedback = `You are not meeting your daily nutrition needs for ${lackof.join(
-      ", "
-    )}. Consider adjusting your diet to include more of these nutrients.`;
-    status = "BE AWARE";
-  }
-
-  const createdAtValue = new Date();
-  const updatedAtValue = new Date();
-  createdAtValue.setHours(createdAtValue.getHours() + 7);
-  updatedAtValue.setHours(updatedAtValue.getHours() + 7);
-  try {
-    const intakeUserId = uuidv4();
-    await IntakeUsers.create({
-      id: intakeUserId,
+  const check = await IntakeUsers.findOne({
+    where: {
       userid: userId,
-      fatintake: totalFat,
-      proteinintake: totalProtein,
-      caloryintake: totalCalory,
-      fiberintake: totalFiber,
-      carbohidrateintake: totalCarbohidrate,
-      healthstatus: status,
-      feedback: feedback,
-      createdAt: createdAtValue,
-      updatedAt: updatedAtValue,
+      createdAt: {
+        [Op.gte]: today,
+      },
+    },
+  });
+  if(check == null){
+    return{
+      status: "false",
+      code: 204,
+      message: "You have filled this form today!",
+    };
+  }else{
+    let totalFat = 0
+    let totalProtein = 0
+    let totalCalory = 0
+    let totalFiber = 0
+    let totalCarbohidrate = 0
+    let inputData = request.body
+
+    for (let food in inputData) {
+      let foodData = inputData[food];
+      let jsonFileData = dataMakanan[food];
+    
+      totalFat += foodData * jsonFileData.fat;
+      totalProtein += foodData * jsonFileData.protein;
+      totalCalory += foodData * jsonFileData.calory;
+      totalFiber += foodData * jsonFileData.fiber;
+      totalCarbohidrate += foodData * jsonFileData.carbohidrate;
+    }
+
+    const userdata = await Users.findOne({
+      where: { id: userId },
     });
-    return {
-      status: "success",
-      code: 200,
-      message: "Creating intake users successfully!",
-      data: {
+    let lackof = [];
+    if (totalFat < userdata.fatneed) {
+      lackof.push("fat");
+    }
+    if (totalProtein < userdata.proteinneed) {
+      lackof.push("protein");
+    }
+    if (totalCalory < userdata.caloryneed) {
+      lackof.push("calory");
+    }
+    if (totalFiber < userdata.fiberneed) {
+      lackof.push("fiber");
+    }
+    let carbohidrateneed = (65 / 100) * request.body.caloryintake;
+    if (totalCarbohidrate < carbohidrateneed) {
+      lackof.push("carbohidrate");
+    }
+    let feedback = "none";
+    let status = "none";
+    if (lackof.length === 0) {
+      feedback =
+        "Great job on meeting your daily nutrition needs! Keep up the good work and continue to prioritize a balanced and healthy diet. Remember to listen to your body and make adjustments as necessary to maintain optimal health.";
+      status = "EXCELENT";
+    } else {
+      feedback = `You are not meeting your daily nutrition needs for ${lackof.join(
+        ", "
+      )}. Consider adjusting your diet to include more of these nutrients.`;
+      status = "POOR";
+    }
+
+    const createdAtValue = new Date();
+    const updatedAtValue = new Date();
+    createdAtValue.setHours(createdAtValue.getHours() + 7);
+    updatedAtValue.setHours(updatedAtValue.getHours() + 7);
+    try {
+      const intakeUserId = uuidv4();
+      await IntakeUsers.create({
         id: intakeUserId,
         userid: userId,
         fatintake: totalFat,
@@ -182,24 +180,44 @@ async function createIntakeUsers(request) {
         carbohidrateintake: totalCarbohidrate,
         healthstatus: status,
         feedback: feedback,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      status: "Failed",
-      code: 400,
-      message: "Error creating intake users!",
-      userid: userId,
-      fatintake: totalFat,
-      proteinintake: totalProtein,
-      caloryintake: totalCalory,
-      fiberintake: totalFiber,
-      carbohidrateintake: totalCarbohidrate,
-      healthstatus: status,
-      feedback: feedback,
-    };
+        createdAt: createdAtValue,
+        updatedAt: updatedAtValue,
+      });
+      return {
+        status: "success",
+        code: 200,
+        message: "Creating intake users successfully!",
+        data: {
+          id: intakeUserId,
+          userid: userId,
+          fatintake: totalFat,
+          proteinintake: totalProtein,
+          caloryintake: totalCalory,
+          fiberintake: totalFiber,
+          carbohidrateintake: totalCarbohidrate,
+          healthstatus: status,
+          feedback: feedback,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        status: "Failed",
+        code: 400,
+        message: "Error creating intake users!",
+        userid: userId,
+        fatintake: totalFat,
+        proteinintake: totalProtein,
+        caloryintake: totalCalory,
+        fiberintake: totalFiber,
+        carbohidrateintake: totalCarbohidrate,
+        healthstatus: status,
+        feedback: feedback,
+      };
+    }
   }
+
+  
 }
 
 export default {
