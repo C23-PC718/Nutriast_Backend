@@ -108,13 +108,13 @@ async function createIntakeUsers(request) {
       },
     },
   });
-  // if(check !== null){
-  //   return{
-  //     status: "false",
-  //     code: 204,
-  //     message: "You have filled this form today!",
-  //   };
-  // }else{
+  if(check !== null){
+    return{
+      status: "false",
+      code: 204,
+      message: "You have filled this form today!",
+    };
+  }else{
     let totalFat = 0
     let totalProtein = 0
     let totalCalory = 0
@@ -217,7 +217,7 @@ async function createIntakeUsers(request) {
         feedback: feedback,
       };
     }
-  // }
+  }
 
   
 }
