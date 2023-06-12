@@ -108,7 +108,7 @@ async function createIntakeUsers(request) {
       },
     },
   });
-  if(check == null){
+  if(check !== null){
     return{
       status: "false",
       code: 204,
