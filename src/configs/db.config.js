@@ -8,7 +8,6 @@ const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
   dialect: "mysql",
 });
 
-
 // Uncommand to sync table design
 
 // db.sync({ alter: true })

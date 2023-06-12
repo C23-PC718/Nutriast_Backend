@@ -1,48 +1,51 @@
-import { DataTypes } from 'sequelize';
-import db from '../configs/db.config.js';
+import { DataTypes } from "sequelize";
+import db from "../configs/db.config.js";
 
-export const IntakeUsers = db.define('intakeuser', {
+export const IntakeUsers = db.define(
+  "intakeuser",
+  {
     id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-        allowNull: false,
+      type: DataTypes.STRING,
+      primaryKey: true,
+      allowNull: false,
     },
     userid: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     fatintake: {
-        type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT,
     },
     proteinintake: {
-        type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT,
     },
     caloryintake: {
-        type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT,
     },
     fiberintake: {
-        type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT,
     },
     carbohidrateintake: {
-        type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT,
     },
     healthstatus: {
-        type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     feedback: {
-        type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-        },
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
     updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-        },
-    }, 
-{
-  freezeTableName: true
-});
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);

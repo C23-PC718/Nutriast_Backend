@@ -1,13 +1,11 @@
 import usersService from "../services/users.service.js";
 import ResponseClass from "../models/response.model.js";
 
-// get all users
+// GET ALL USERS
 const get = async (req, res, next) => {
   try {
     const data = await usersService.getMultiple();
-    // res.json(await usersService.getMultiple());
     if (data.code === 200) {
-      // send response
       if (res.status) {
         return res.status(200).json(data);
       } else {
@@ -15,7 +13,6 @@ const get = async (req, res, next) => {
         return;
       }
     }
-    // return Error
     if (res.status) {
       return res.status(404).json(data);
     } else {
@@ -28,7 +25,7 @@ const get = async (req, res, next) => {
   }
 };
 
-// get user by id
+// GET USERS BY ID
 const getbyid = async (req, res, next) => {
   try {
     const data = await usersService.getbyid(req);
@@ -67,7 +64,7 @@ const login = async (req, res) => {
       // return response cookie with refresh_token
       res.cookie("refreshToken", loginResult.refresh_token, {
         httpOnly: true,
-        // maxAge: 24 * 60 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 1000
       });
 
       // return response
