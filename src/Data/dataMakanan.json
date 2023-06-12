@@ -1,107 +1,107 @@
 {
   "rice": {
-    "fat": 0.003,
-    "protein": 0.027,
-    "calory": 0.13,
-    "fiber": 0.018,
+    "fat": 0,
+    "protein": 0.03,
+    "calory": 1,
+    "fiber": 0,
     "carbohidrate": 0.28
   },
   "egg": {
-    "fat": 0.095,
-    "protein": 0.126,
-    "calory": 0.155,
+    "fat": 0.1,
+    "protein": 0.13,
+    "calory": 1,
     "fiber": 0,
-    "carbohidrate": 0.011
+    "carbohidrate": 0.01
   },
   "chicken": {
-    "fat": 0.036,
-    "protein": 0.21,
-    "calory": 0.165,
+    "fat": 0.07,
+    "protein": 0.25,
+    "calory": 2,
     "fiber": 0,
     "carbohidrate": 0
   },
   "beef": {
-    "fat": 0.18,
+    "fat": 0.2,
     "protein": 0.26,
-    "calory": 0.25,
+    "calory": 3,
     "fiber": 0,
     "carbohidrate": 0
   },
   "tofu": {
-    "fat": 0.048,
+    "fat": 0.05,
     "protein": 0.08,
-    "calory": 0.07,
-    "fiber": 0.005,
-    "carbohidrate": 0.017
+    "calory": 1,
+    "fiber": 0,
+    "carbohidrate": 0.02
   },
-  "soybean_cake": {
+  "soybean cake": {
     "fat": 0.11,
     "protein": 0.19,
-    "calory": 0.196,
-    "fiber": 0.1,
+    "calory": 2,
+    "fiber": 0,
     "carbohidrate": 0.09
   },
   "noodle": {
-    "fat": 0.011,
-    "protein": 0.045,
-    "calory": 0.138,
-    "fiber": 0.014,
-    "carbohidrate": 0.26
+    "fat": 0.02,
+    "protein": 0.05,
+    "calory": 1,
+    "fiber": 0,
+    "carbohidrate": 0.25
   },
   "potato": {
-    "fat": 0.001,
+    "fat": 0,
     "protein": 0.02,
-    "calory": 0.077,
-    "fiber": 0.022,
-    "carbohidrate": 0.17
+    "calory": 1,
+    "fiber": 0,
+    "carbohidrate": 0.2
   },
   "milk": {
-    "fat": 0.037,
-    "protein": 0.034,
-    "calory": 0.042,
+    "fat": 0.02,
+    "protein": 0.03,
+    "calory": 0,
     "fiber": 0,
-    "carbohidrate": 0.048
+    "carbohidrate": 0.05
   },
   "coffee": {
-    "fat": 0.003,
-    "protein": 0.001,
-    "calory": 0.001,
+    "fat": 0,
+    "protein": 0,
+    "calory": 0,
     "fiber": 0,
-    "carbohidrate": 0.003
+    "carbohidrate": 0
   },
   "tea": {
     "fat": 0,
     "protein": 0,
-    "calory": 0.001,
+    "calory": 0,
     "fiber": 0,
-    "carbohidrate": 0.004
+    "carbohidrate": 0.08
   },
   "fish": {
-    "fat": 0.006,
-    "protein": 0.02,
-    "calory": 0.015,
+    "fat": 0.01,
+    "protein": 0.18,
+    "calory": 1,
     "fiber": 0,
     "carbohidrate": 0
   },
   "banana": {
-    "fat": 0.002,
-    "protein": 0.011,
-    "calory": 0.096,
-    "fiber": 0.026,
+    "fat": 1,
+    "protein": 0.01,
+    "calory": 1,
+    "fiber": 0,
     "carbohidrate": 0.23
   },
   "avocado": {
-    "fat": 0.147,
+    "fat": 0.15,
     "protein": 0.02,
-    "calory": 0.16,
-    "fiber": 0.067,
-    "carbohidrate": 0.085
+    "calory": 2,
+    "fiber": 0.1,
+    "carbohidrate": 0.09
   },
   "papaya": {
-    "fat": 0.004,
-    "protein": 0.005,
-    "calory": 0.043,
-    "fiber": 0.017,
-    "carbohidrate": 0.11
+    "fat": 0,
+    "protein": 0.01,
+    "calory": 0,
+    "fiber": 0,
+    "carbohidrate": 0.01
   }
 }

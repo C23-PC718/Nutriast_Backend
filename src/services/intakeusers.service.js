@@ -96,7 +96,9 @@ async function getById(request) {
 }
 
 async function createIntakeUsers(request) {
-
+  const today = new Date(); // Get the current date and time
+  today.setHours(0, 0, 0, 0); // Set the time to 00:00:00.000
+  today.setHours(today.getHours() + 7);
   const { userId } = request.params;
   const check = await IntakeUsers.findOne({
     where: {
