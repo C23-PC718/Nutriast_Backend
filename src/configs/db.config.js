@@ -1,3 +1,4 @@
+// library
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
@@ -8,7 +9,7 @@ const db = new Sequelize("nutriastdb", "root", "nutriastapi28", {
   dialect: "mysql",
 });
 
-// Uncommand to sync table design
+/* Uncommand to sync table design */
 
 // db.sync({ alter: true })
 //   .then(() => {

@@ -1,23 +1,15 @@
+// SERVICE
 import usersService from "../services/users.service.js";
 import ResponseClass from "../models/response.model.js";
 
 // GET ALL USERS
-const get = async (res, next) => {
+const get = async (req, res, next) => {
   try {
-    const data = await usersService.getMultiple();
-    if (data.code === 200) {
-      if (res.status) {
-        return res.status(200).json(data);
-      } else {
-        console.error("Response object does not have a status method");
-        return;
-      }
-    }
-    if (res.status) {
-      return res.status(404).json(data);
+    const dataResult = await usersService.getAll();
+    if (dataResult.code === 200) {
+      return res.status(200).json(dataResult);
     } else {
-      console.error("Response object does not have a status method");
-      return;
+      return res.status(404).json(dataResult);
     }
   } catch (error) {
     console.error(`Error while getting users`, error.message);
@@ -28,11 +20,11 @@ const get = async (res, next) => {
 // GET USERS BY ID
 const getbyid = async (req, res, next) => {
   try {
-    const data = await usersService.getbyid(req);
-    if (data.code === 200) {
-      return res.status(200).json(data);
+    const dataResult = await usersService.getById(req);
+    if (dataResult.code === 200) {
+      return res.status(200).json(dataResult);
     }
-    return res.status(404).json(data);
+    return res.status(404).json(dataResult);
   } catch (err) {
     console.error(`Error while getting user by id`, err.message);
     next(err);
@@ -50,9 +42,9 @@ const register = async (req, res, next) => {
 };
 
 // LOGIN
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
-    var loginResult = await usersService.loginUsers(req.body);
+    var loginResult = await usersService.loginUsers(req);
     // if login result is success
     if (loginResult.code == 200) {
       var responseSuccess = new ResponseClass.SuccessResponse();

@@ -1,23 +1,25 @@
+// data
+import dataMakanan from "../Data/DataMakananTKPI.json" assert { type: "json" };
+// response
+import ResponseClass from "../models/response.model.js";
 // library
 import { IntakeUsers } from "../models/intakeusers.model.js";
 import { v4 as uuidv4 } from "uuid";
 import { Op } from "sequelize";
-// data
-import dataMakanan from "../Data/dataMakanan.json" assert { type: "json" };
 // model
 import { Users } from "../models/users.model.js";
-// response
-import ResponseClass from "../models/response.model.js";
 
-// GET ALL INTAKE
-async function getMultiple() {
+// GET ALL FOOD LIST
+async function getFoodList() {
+  //   const fetchResult = dataMakanan;
+  const fetchResult = dataMakanan.map((item) => item.nama);
   try {
-    const dbResult = await IntakeUsers.findAll({});
+    //   const fetchResult = await IntakeUsers.findAll({});
     const responseSuccess = new ResponseClass.SuccessResponse(
       200,
       "success",
-      "Fetching intake users successfully!",
-      dbResult
+      "Fetching food list successfully!",
+      fetchResult
     );
     return responseSuccess;
   } catch (error) {
@@ -25,86 +27,14 @@ async function getMultiple() {
     const responseError = new ResponseClass.ErrorResponse(
       400,
       "failed",
-      "Error fetching intake users!"
+      "Error fetching food list users!"
     );
     return responseError;
   }
 }
 
-// GET USER INTAKE HISTORY
-async function getHistory(request) {
-  var responseError = new ResponseClass.ErrorResponse();
-  var responseSuccess = new ResponseClass.SuccessResponse();
-
-  const { intakeUserId } = request.params;
-
-  try {
-    const dbResult = await IntakeUsers.findAll({
-      where: {
-        userid: intakeUserId,
-      },
-      order: [["createdAt", "DESC"]],
-    });
-    responseSuccess.code = 200;
-    responseSuccess.status = "success";
-    responseSuccess.message = "Fetching intake users successfully!";
-    responseSuccess.data = dbResult;
-    return responseSuccess;
-  } catch (error) {
-    responseError.code = 400;
-    responseError.status = "failed";
-    responseError.message = "Error fetching intake user!";
-    return responseError;
-  }
-}
-
-//  GET INTAKE BY ID
-async function getById(request) {
-  var responseError = new ResponseClass.ErrorResponse();
-  var responseSuccess = new ResponseClass.SuccessResponse();
-
-  const { intakeUserId } = request.params;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  today.setHours(today.getHours() + 7);
-  const check = await IntakeUsers.findOne({
-    where: {
-      userid: intakeUserId,
-      createdAt: {
-        [Op.gte]: today,
-      },
-    },
-    attributes: ["healthstatus", "feedback"],
-  });
-  try {
-    if (check == null) {
-      return {
-        status: "success",
-        code: 200,
-        message: "Fetching intake users id history successfully!",
-        data: {
-          healthstatus: "UNKNOWN",
-          feedback: "You haven't fill intake form for today.",
-        },
-      };
-    } else {
-      responseSuccess.code = 200;
-      responseSuccess.status = "success";
-      responseSuccess.message = "Fetching intake users id successfully!";
-      responseSuccess.data = dbResult;
-      return responseSuccess;
-    }
-  } catch (error) {
-    console.error(error);
-    responseError.code = 400;
-    responseError.status = "failed";
-    responseError.message = "Error fetching intake user hstory BY ID";
-    return responseError;
-  }
-}
-
-// INTAKE
-async function createIntakeUsers(request) {
+// INTAKE FOR TKPI
+async function createIntakeUsersTKPI(request) {
   var responseError = new ResponseClass.ErrorResponse();
   var responseSuccess = new ResponseClass.SuccessResponse();
   const today = new Date();
@@ -131,17 +61,20 @@ async function createIntakeUsers(request) {
     let totalCalory = 0;
     let totalFiber = 0;
     let totalCarbohidrate = 0;
-    let inputData = request.body;
 
-    for (let food in inputData) {
-      let foodData = inputData[food];
-      let jsonFileData = dataMakanan[food];
+    const inputData = request.body;
 
-      totalFat += foodData * jsonFileData.fat;
-      totalProtein += foodData * jsonFileData.protein;
-      totalCalory += foodData * jsonFileData.calory;
-      totalFiber += foodData * jsonFileData.fiber;
-      totalCarbohidrate += foodData * jsonFileData.carbohidrate;
+    for (const foodName in inputData) {
+      const quantity = inputData[foodName];
+
+      const foodData = dataMakanan.find((food) => food.nama === foodName);
+      if (foodData) {
+        totalFat += (foodData.lemak / 100) * quantity;
+        totalProtein += (foodData.protein / 100) * quantity;
+        totalCalory += (foodData.energi / 100) * quantity;
+        totalFiber += (foodData.serat / 100) * quantity;
+        totalCarbohidrate += (foodData.karbohidrat / 100) * quantity;
+      }
     }
 
     const userdata = await Users.findOne({ where: { id: userId } });
@@ -222,8 +155,6 @@ async function createIntakeUsers(request) {
 }
 
 export default {
-  getMultiple,
-  getById,
-  getHistory,
-  createIntakeUsers
+  getFoodList,
+  createIntakeUsersTKPI,
 };

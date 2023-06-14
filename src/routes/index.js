@@ -1,10 +1,16 @@
+// IMPORT LIBRARY
 import express from "express";
+// JWT
 import { verifyToken } from "../middlewares/VerifyToken.js";
+// CONTROLLER
 import usersController from "../controllers/users.controller.js";
 import intakeusersController from "../controllers/intakeusers.controller.js";
+import tkpiController from "../controllers/tkpi.controller.js";
 
+// ROUTER
 const router = express.Router();
 
+//UNTUK DEPLOY
 // /* users */
 // router.get("/users", verifyToken, usersController.get);
 // router.get("/users/:userId", verifyToken, usersController.getbyid);
@@ -32,4 +38,10 @@ router.get("/intakeusers/:intakeUserId", intakeusersController.getbyid);
 router.get("/intakeusershistory/:intakeUserId", intakeusersController.gethistory);
 router.post("/intakeusers/:userId", intakeusersController.create);
 
+/* TKPI API */
+router.get("/foodlist", tkpiController.get)
+router.post("/intakeuserstkpi/:userId", tkpiController.create);
+
+
+// EXPORT
 export default router;

@@ -1,3 +1,4 @@
+// SERVICE
 import intakeUsersService from "../services/intakeusers.service.js";
 
 const get = async (req, res, next) => {
