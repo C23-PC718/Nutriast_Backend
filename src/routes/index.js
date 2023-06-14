@@ -11,7 +11,7 @@ import tkpiController from "../controllers/tkpi.controller.js";
 const router = express.Router();
 
 //UNTUK DEPLOY
-// /* users */
+/* users */
 router.get("/users", verifyToken, usersController.get);
 router.get("/users/:userId", verifyToken, usersController.getbyid);
 router.post("/register", usersController.register);
@@ -27,7 +27,7 @@ router.get("/foodlist", tkpiController.get)
 router.post("/intakeuserstkpi/:userId", tkpiController.create);
 
 // UNTUK TEST LOCAL
-// /* users */
+/* users */
 // router.get("/users", usersController.get);
 // router.get("/users/:userId", usersController.getbyid);
 // router.post("/register", usersController.register);
