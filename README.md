@@ -8,11 +8,11 @@ Our project scope includes developing a mobile app that enables users to input t
 ### Team and JobDesk:
 The project is divided into three teams that collaborate to create an ML-based prediction application. The ML team creates a model in Python, the CC team creates APIs in Python and JavaScript for database and prediction purposes, and the MD team develops the front-end and builds a mobile application.
 ### Tools
-> Languages: NodeJS (express)
+> Languages: NodeJS (Express)
 
 > VSCode as IDE
 
-> Google Cloud Platform: App Engine, CloudSQL DB, Bucket Storage
+> Google Cloud Platform: Cloud Run, CloudSQL DB
 ...
 ### Database
 - Table users:
