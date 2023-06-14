@@ -81,7 +81,7 @@ async function getById(request) {
       return {
         status: "success",
         code: 200,
-        message: "Fetching intake users id history successfully!",
+        message: "Fetching intake users id successfully!",
         data: {
           healthstatus: "UNKNOWN",
           feedback: "You haven't fill intake form for today.",
@@ -91,14 +91,14 @@ async function getById(request) {
       responseSuccess.code = 200;
       responseSuccess.status = "success";
       responseSuccess.message = "Fetching intake users id successfully!";
-      responseSuccess.data = dbResult;
+      responseSuccess.data = check;
       return responseSuccess;
     }
   } catch (error) {
     console.error(error);
     responseError.code = 400;
     responseError.status = "failed";
-    responseError.message = "Error fetching intake user hstory BY ID";
+    responseError.message = "Error fetching intake user BY ID";
     return responseError;
   }
 }
