@@ -51,7 +51,7 @@ const login = async (req, res, next) => {
       // return response cookie with refresh_token
       res.cookie("refreshToken", loginResult.refresh_token, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+        // maxAge: 24 * 60 * 60 * 1000,
       });
       responseSuccess.message = "Login Success";
       responseSuccess.data = {

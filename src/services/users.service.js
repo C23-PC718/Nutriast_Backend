@@ -442,8 +442,8 @@ function generateToken(userRegistered) {
     { userId, name, email }, // Payload containing user information
     process.env.ACCESS_TOKEN_SECRET, // Secret key for signing the token
     {
-      expiresIn: "120s", // Expiration time of 120 seconds (2 minutes)
-      // expiresIn: "120d", // Alternatively, use "120d" for 120 days
+      // expiresIn: "120s", // Expiration time of 120 seconds (2 minutes)
+      expiresIn: "120d", // Alternatively, use "120d" for 120 days
     }
   );
 
