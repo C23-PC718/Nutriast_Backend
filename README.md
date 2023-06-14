@@ -16,32 +16,9 @@ The project is divided into three teams that collaborate to create an ML-based p
 ...
 ### Database
 - Table users:
-id (varchar[255], primary)
-username (varchar[255], not null)
-email (varchar[255], not null)
-password (varchar[255], not null)
-gender (varchar[255], not null)
-birthDate (date, not null)
-height (integer[11], not null)
-weight (integer[11], not null)
-cholesterol (integer[11], not null)
-glucose (integer[11], not null)
-fatneed (float[11])
-proteinneed (float[11])
-caloryneed (float[11])
-fiberneed (float[11])
-carbohidrateNeed (float[11])
-refresh_token (string[255])
+![image](https://github.com/slvally/Nutriast_Backend/assets/133903731/e7ee1f27-678c-463e-88e8-c382e60b2082)
 - Table intakeusers:
-id (varchar[255], primary)
-userid (reference to users)
-healthstatus (varchar[255])
-fatintake (float[11])
-caloryintake (float[11])
-fiberintake (float[11])
-carbohidrateintake (float[11])
-feedback (varchar[255])
-
+![image](https://github.com/slvally/Nutriast_Backend/assets/133903731/5d371ad9-9400-40a1-a6d7-c9dfd642f530)
 
 ## Installation
 1. Clone repository following this command
