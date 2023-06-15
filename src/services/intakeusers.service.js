@@ -66,7 +66,7 @@ async function getById(request) {
   const { intakeUserId } = request.params;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  today.setHours(today.getHours() + 7);
+  // today.setHours(today.getHours() + 7);
   const check = await IntakeUsers.findOne({
     where: {
       userid: intakeUserId,
