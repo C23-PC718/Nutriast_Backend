@@ -76,6 +76,7 @@ async function getById(request) {
     },
     attributes: ["healthstatus", "feedback"],
   });
+  console.log("today ="+ today, "data =" + check)
   try {
     if (check == null) {
       return {
