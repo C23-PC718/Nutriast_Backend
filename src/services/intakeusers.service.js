@@ -122,7 +122,7 @@ async function createIntakeUsers(request) {
   });
   if (check !== null) {
     return {
-      status: "failed",
+      status: "success",
       code: 200,
       message: "You have filled this form today!",
     };
